@@ -4,18 +4,25 @@
 
 import Style from 'ol/style/Style'
 import nycOl from 'nyc-lib/nyc/ol' 
+import IconLib from 'nyc-lib/nyc/ol/style/IconLib'
 import Circle from 'ol/style/Circle'
 import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Text from 'ol/style/Text'
 
-const facilityStyle = {
+const iconLib = new IconLib()
 
+const facilityStyle = {
   pointStyle: (feature, resolution) => {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
     const active = feature.getActive()
     const Ops_status = feature.getStatus()
-    const siteName = feature.getName()
+    const icon = feature.get('Icon')
+    const radius = facilityStyle.calcRadius(zoom)
+
+    if (icon) {
+      return iconLib.style(icon, radius * 2)
+    }
 
     let fillColor = '#0080A9'
 
@@ -31,7 +38,6 @@ const facilityStyle = {
       }
     }
     
-    const radius = facilityStyle.calcRadius(zoom)
 
     return new Style({
       image: new Circle({

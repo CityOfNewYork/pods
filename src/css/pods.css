@@ -497,3 +497,13 @@ html[lang="ur"] .fnd #banner>div {
 html[lang="ur"] font, html[lang="ur"] .srch-ctl input, html[lang="ur"] #fld-from input  {
   line-height: 25px;
 }
+
+.extra>div {
+  display: inline-block;
+  width: 48%;
+  margin: 0 5px 5px 0;
+}
+
+.extra>div.lbl {
+  font-weight: bold;
+}

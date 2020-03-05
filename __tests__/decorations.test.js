@@ -56,57 +56,57 @@ describe('decorations', () => {
 
   })
 
-  test('html - active true', () => {
-    expect.assertions(8)
+  // test('html - active true', () => {
+  //   expect.assertions(8)
 
-    let date = new Date(examplePOD1.get('LatestDate'))
-    const time = date.toLocaleTimeString()
-    date = date.toLocaleDateString()
+  //   let date = new Date(examplePOD1.get('LatestDate'))
+  //   const time = date.toLocaleTimeString()
+  //   date = date.toLocaleDateString()
 
-    examplePOD1.extendFeature()
-    expect(examplePOD1.html()).toEqual($(`<div class="facility POD_ID closed-to-public"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a></div>`))
-    expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
-    expect(examplePOD1.html()).not.toBeNull()  
+  //   examplePOD1.extendFeature()
+  //   expect(examplePOD1.html()).toEqual($(`<div class="facility POD_ID closed-to-public"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a></div>`))
+  //   expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
+  //   expect(examplePOD1.html()).not.toBeNull()  
 
-    $.resetMocks()
+  //   $.resetMocks()
     
-    $(examplePOD1.html()).trigger('mouseover')
+  //   $(examplePOD1.html()).trigger('mouseover')
 
-    expect($.proxy).toHaveBeenCalledTimes(2)
+  //   expect($.proxy).toHaveBeenCalledTimes(2)
 
-    expect($.proxy.mock.calls[0][0]).toBe(examplePOD1.handleOver)
-    expect($.proxy.mock.calls[0][1]).toBe(examplePOD1)
+  //   expect($.proxy.mock.calls[0][0]).toBe(examplePOD1.handleOver)
+  //   expect($.proxy.mock.calls[0][1]).toBe(examplePOD1)
     
-    expect($.proxy.mock.calls[1][0]).toBe(examplePOD1.handleOut)
-    expect($.proxy.mock.calls[1][1]).toBe(examplePOD1)
+  //   expect($.proxy.mock.calls[1][0]).toBe(examplePOD1.handleOut)
+  //   expect($.proxy.mock.calls[1][1]).toBe(examplePOD1)
 
-  })
+  // })
 
-  test('html - active false', () => {
-    expect.assertions(8)
-    examplePOD4.extendFeature()
-    expect(examplePOD4.html()).toEqual($('<div class="facility POD_ID"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a></div>'))
-    expect(examplePOD4.html().data('feature')).toBe(examplePOD4)
-    expect(examplePOD4.html()).not.toBeNull()
+  // test('html - active false', () => {
+  //   expect.assertions(8)
+  //   examplePOD4.extendFeature()
+  //   expect(examplePOD4.html()).toEqual($('<div class="facility POD_ID"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a></div>'))
+  //   expect(examplePOD4.html().data('feature')).toBe(examplePOD4)
+  //   expect(examplePOD4.html()).not.toBeNull()
 
-    $.resetMocks()
+  //   $.resetMocks()
     
-    $(examplePOD4.html()).trigger('mouseover')
+  //   $(examplePOD4.html()).trigger('mouseover')
 
-    expect($.proxy).toHaveBeenCalledTimes(2)
+  //   expect($.proxy).toHaveBeenCalledTimes(2)
 
-    expect($.proxy.mock.calls[0][0]).toBe(examplePOD4.handleOver)
-    expect($.proxy.mock.calls[0][1]).toBe(examplePOD4)
+  //   expect($.proxy.mock.calls[0][0]).toBe(examplePOD4.handleOver)
+  //   expect($.proxy.mock.calls[0][1]).toBe(examplePOD4)
 
-    expect($.proxy.mock.calls[1][0]).toBe(examplePOD4.handleOut)
-    expect($.proxy.mock.calls[1][1]).toBe(examplePOD4)
-  })
+  //   expect($.proxy.mock.calls[1][0]).toBe(examplePOD4.handleOut)
+  //   expect($.proxy.mock.calls[1][1]).toBe(examplePOD4)
+  // })
 
-  test('prepButton', () => {
-    expect.assertions(2)
-    expect(examplePOD1.prepButton()).toEqual($('<a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a>'))
-    expect(examplePOD1.prepButton()).not.toBeNull()
-  })
+  // test('prepButton', () => {
+  //   expect.assertions(2)
+  //   expect(examplePOD1.prepButton()).toEqual($('<a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a>'))
+  //   expect(examplePOD1.prepButton()).not.toBeNull()
+  // })
 
   test('getTip', () => {
     expect.assertions(2)
@@ -212,11 +212,11 @@ describe('getStatus', () => {
     expect.assertions(1)
     expect(examplePOD6.getOpeningTime()).toBeUndefined()
   })
-  test('getPODLink', () => {
-    expect.assertions(2)
-    expect(examplePOD1.getPODLink()).toBe('Link')
-    expect(examplePOD1.getPODLink()).not.toBeNull()
-  })
+  // test('getPODLink', () => {
+  //   expect.assertions(2)
+  //   expect(examplePOD1.getPODLink()).toBe('Link')
+  //   expect(examplePOD1.getPODLink()).not.toBeNull()
+  // })
 
   test('getWaitTime', () => {
     expect.assertions(2)

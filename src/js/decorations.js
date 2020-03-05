@@ -3,7 +3,33 @@
  */
 
 import pods from './pods'
-import nyc from 'nyc-lib/nyc'
+
+const FIELDS = [
+  'geometry',
+  'ActivePOD',
+  'DOECode',
+  'PODSiteName',
+  'Address',
+  'Borough',
+  'ZIP',
+  'Ops_status',
+  'OpeningTime',
+  'wait_time',
+  'LatestDate',
+  'LabelPos',
+  'x',
+  'y',
+  'Link1',
+  'Label1',
+  'Link2',
+  'Label2',
+  'Link3',
+  'Lable3',
+  'Icon',
+  'search_label',
+  '__distance'
+]
+
 
 const decorations = {
   extendFeature() {
@@ -37,15 +63,34 @@ const decorations = {
       .append(this.detailsHtml())
       .append(this.mapButton())
       .append(this.directionsButton())
-      .append(this.prepButton())
+      .append(this.prepButtons())
+      .append(this.extras())
       .data('feature', this)
       .mouseover($.proxy(this.handleOver, this))
       .mouseout($.proxy(this.handleOut, this))
   },
-  prepButton() {
-    return $('<a class="btn rad-all prep" target="_blank"></a>')
-      .html('Prepare For Your Visit')
-      .attr('href', this.getPODLink())
+  extras() {
+    const html = $('<div class="extra"></div>')
+    const props = this.getProperties()
+    Object.keys(props).forEach(prop => {
+      if ($.inArray(prop, FIELDS) === -1 && props[prop]) {
+        html.append(`<div class="lbl">${prop}:</div><div class="val">${props[prop]}</div>`)
+      }
+    })
+    if (html.html()) {
+      return html
+    }
+  },
+  prepButtons() {
+    const buttons = []
+    for (let i = 1; i < 4; i++) {
+      const lnk = this.get(`Link${i}`)
+      const lbl = this.get(`Label${i}`)
+      if (lnk) {
+        buttons.push($(`<a class="btn rad-all prep" href="${lnk}" target="_blank">${lbl}</a>`))
+      }
+    }
+    return buttons
   },
   getTip() {
     return $('<div></div>')
@@ -94,9 +139,6 @@ const decorations = {
       const time_convert = new Date(time)
       return `${time_convert.toLocaleDateString()} ${time_convert.toLocaleTimeString()}` 
     }
-  },
-  getPODLink() {
-    return this.get('DOHMHPODLink')
   },
   getWaitTime() {
     return this.get('wait_time')
