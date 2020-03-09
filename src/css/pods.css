@@ -3,13 +3,11 @@
   background-size: 49px 24px;
   padding: 4px 0 0 57px;
 }
-
 .fnd #home:focus svg {
   transform: scale(0.32,0.33);
   margin-top: -11px;
   margin-left: -48.5px;
 }
-
 .fnd .splash .dia {
   top: 60px;
 }
@@ -30,7 +28,6 @@
 .fnd .splash .dia a.btn-yes:hover {
   background-image: var(--speaker-icon-light);
 }
-
 #marquee {
   display: none;
   border-top: 1px solid #F2DEDE;
@@ -493,17 +490,10 @@ html[lang="ur"] .fnd #banner>div {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 html[lang="ur"] font, html[lang="ur"] .srch-ctl input, html[lang="ur"] #fld-from input  {
   line-height: 25px;
 }
-
-.extra>div {
-  display: inline-block;
-  width: 48%;
-  margin: 0 5px 5px 0;
-}
-
 .extra>div.lbl {
   font-weight: bold;
+  margin-top: 3px;
 }
