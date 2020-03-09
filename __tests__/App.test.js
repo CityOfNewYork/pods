@@ -5,10 +5,12 @@ import pods from '../src/js/pods'
 import FinderApp from 'nyc-lib/nyc/ol/FinderApp'
 import App from '../src/js/App';
 import GeoJson from 'ol/format/GeoJSON'
+import CsvPoint from 'nyc-lib/nyc/ol/format/CsvPoint'
 import Layer from 'ol/layer/Vector'
 import {examplePOD1, examplePOD2, examplePOD3, examplePOD5} from './features.mock'
 import Basemap from 'nyc-lib/nyc/ol/Basemap'
 
+jest.mock('nyc-lib/nyc/ol/format/CsvPoint')
 jest.mock('nyc-lib/nyc/ol/FinderApp')
 jest.mock('ol/format/GeoJSON')
 jest.mock('ol/layer/Vector')
@@ -58,10 +60,12 @@ afterEach(() => {
   App.prototype.highlightSite = highlightSite
 })
 
+
+
 describe('constructor', () => {
 
-  test('constructor active', () => {
-    expect.assertions(63)
+  test('constructor active  (using provided REST URL)', () => {
+    expect.assertions(64)
 
     mockContent.messages.active = 'true'
 
@@ -76,6 +80,7 @@ describe('constructor', () => {
     expect(FinderApp.mock.calls[0][0].facilityUrl).toBe('http://pods-endpoint')
     
     expect(GeoJson).toHaveBeenCalledTimes(1)
+    expect(CsvPoint).toHaveBeenCalledTimes(0)
     expect(GeoJson.mock.calls[0][0].dataProjection).toBe('EPSG:2263')
     expect(GeoJson.mock.calls[0][0].featureProjection).toBe('EPSG:3857')
     expect(FinderApp.mock.calls[0][0].facilityFormat).toBe(GeoJson.mock.instances[0])
@@ -150,10 +155,11 @@ describe('constructor', () => {
 
   })
 
-  test('constructor not active', () => {
-    expect.assertions(53)
+  test('constructor not active  (no REST URL provided)', () => {
+    expect.assertions(55)
 
     mockContent.messages.active = 'false'
+    mockContent.messages.pods_url = ''
 
     const app = new App(mockContent)
 
@@ -168,12 +174,14 @@ describe('constructor', () => {
     expect(FinderApp.mock.calls[0][0].title).toBe('app title')
     expect(FinderApp.mock.calls[0][0].splashOptions.message).toBe('splash content')
     expect(FinderApp.mock.calls[0][0].splashOptions.buttonText).toEqual(['Screen reader instructions', 'View map to find your closest POD Site'])
-    expect(FinderApp.mock.calls[0][0].facilityUrl).toBe('http://pods-endpoint')
+    expect(FinderApp.mock.calls[0][0].facilityUrl).toBe(pods.FACILITY_CSV_URL)
     
-    expect(GeoJson).toHaveBeenCalledTimes(1)
-    expect(GeoJson.mock.calls[0][0].dataProjection).toBe('EPSG:2263')
-    expect(GeoJson.mock.calls[0][0].featureProjection).toBe('EPSG:3857')
-    expect(FinderApp.mock.calls[0][0].facilityFormat).toBe(GeoJson.mock.instances[0])
+    expect(GeoJson).toHaveBeenCalledTimes(0)
+    expect(CsvPoint).toHaveBeenCalledTimes(1)
+    expect(CsvPoint.mock.calls[0][0].dataProjection).toBe('EPSG:2263')
+    expect(CsvPoint.mock.calls[0][0].x).toBe('x')
+    expect(CsvPoint.mock.calls[0][0].y).toBe('y')
+    expect(FinderApp.mock.calls[0][0].facilityFormat).toBe(CsvPoint.mock.instances[0])
     
     expect(FinderApp.mock.calls[0][0].facilityTabTitle).toBe('PODs')
     expect(FinderApp.mock.calls[0][0].facilityStyle).toBe(facilityStyle.pointStyle)
@@ -672,4 +680,25 @@ describe('zoomTo', () => {
     expect(app.popup.showFeature.mock.calls[1][0]).toBe(examplePOD2)
 
   })
+})
+
+test('ready', () => {
+  expect.assertions(5)
+
+  const app = new App(mockContent)
+  
+  app.remove = ['mock-feature-0', 'mock-feature-1']
+  app.source = {
+    removeFeature: jest.fn(),
+    getFeatures: jest.fn()
+  }
+
+  app.ready()
+
+  expect(app.source.removeFeature).toHaveBeenCalledTimes(2)
+  expect(app.source.removeFeature.mock.calls[0][0]).toBe('mock-feature-0')
+  expect(app.source.removeFeature.mock.calls[1][0]).toBe('mock-feature-1')
+
+  expect(app.source.getFeatures).toHaveBeenCalledTimes(1)
+  expect(FinderApp.mock.instances[0].ready).toHaveBeenCalledTimes(1)
 })
