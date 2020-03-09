@@ -24,12 +24,11 @@ const FIELDS = [
   'Link2',
   'Label2',
   'Link3',
-  'Lable3',
+  'Label3',
   'Icon',
   'search_label',
   '__distance'
 ]
-
 
 const decorations = {
   extendFeature() {
@@ -43,9 +42,7 @@ const decorations = {
     if (this.active === 'true') {
       const Ops_status = this.get('Ops_status')
       if (!Ops_status || Ops_status === pods.NOT_ACTIVE_STATUS) {
-        if (this.app) {
-          this.app.remove.push(this)
-        }
+        this.app.remove.push(this)
       }
     }
   },
