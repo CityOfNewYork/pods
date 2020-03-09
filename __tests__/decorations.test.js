@@ -1,8 +1,7 @@
 import decorations from '../src/js/decorations'
 import OlFeature from 'ol/Feature'
-import {examplePOD1, examplePOD2, examplePOD3, examplePOD4, examplePOD6} from './features.mock'
+import {mockApp, examplePOD1, examplePOD2, examplePOD3, examplePOD4, examplePOD6} from './features.mock'
 import nyc from 'nyc-lib/nyc'
-
 
 describe('decorations', () => {
   let container, extendedDecorations
@@ -56,57 +55,69 @@ describe('decorations', () => {
 
   })
 
-  // test('html - active true', () => {
-  //   expect.assertions(8)
+  test('html - active true', () => {
+    expect.assertions(8)
 
-  //   let date = new Date(examplePOD1.get('LatestDate'))
-  //   const time = date.toLocaleTimeString()
-  //   date = date.toLocaleDateString()
+    let date = new Date(examplePOD1.get('LatestDate'))
+    const time = date.toLocaleTimeString()
+    date = date.toLocaleDateString()
 
-  //   examplePOD1.extendFeature()
-  //   expect(examplePOD1.html()).toEqual($(`<div class="facility POD_ID closed-to-public"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a></div>`))
-  //   expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
-  //   expect(examplePOD1.html()).not.toBeNull()  
+    examplePOD1.extendFeature()
 
-  //   $.resetMocks()
+    expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class="facility POD_ID closed-to-public"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link1-1" target="_blank">Label1-1</a><a class="btn rad-all prep" href="Link2-1" target="_blank">Label2-1</a><a class="btn rad-all prep" href="Link3-1" target="_blank">Label3-1</a><div class="extra"><div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div></div></div>`)
+    expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
+    expect(examplePOD1.html()).not.toBeNull()  
+
+    $.resetMocks()
     
-  //   $(examplePOD1.html()).trigger('mouseover')
+    $(examplePOD1.html()).trigger('mouseover')
 
-  //   expect($.proxy).toHaveBeenCalledTimes(2)
+    expect($.proxy).toHaveBeenCalledTimes(2)
 
-  //   expect($.proxy.mock.calls[0][0]).toBe(examplePOD1.handleOver)
-  //   expect($.proxy.mock.calls[0][1]).toBe(examplePOD1)
+    expect($.proxy.mock.calls[0][0]).toBe(examplePOD1.handleOver)
+    expect($.proxy.mock.calls[0][1]).toBe(examplePOD1)
     
-  //   expect($.proxy.mock.calls[1][0]).toBe(examplePOD1.handleOut)
-  //   expect($.proxy.mock.calls[1][1]).toBe(examplePOD1)
+    expect($.proxy.mock.calls[1][0]).toBe(examplePOD1.handleOut)
+    expect($.proxy.mock.calls[1][1]).toBe(examplePOD1)
 
-  // })
+  })
 
-  // test('html - active false', () => {
-  //   expect.assertions(8)
-  //   examplePOD4.extendFeature()
-  //   expect(examplePOD4.html()).toEqual($('<div class="facility POD_ID"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a></div>'))
-  //   expect(examplePOD4.html().data('feature')).toBe(examplePOD4)
-  //   expect(examplePOD4.html()).not.toBeNull()
+  test('html - active false', () => {
+    expect.assertions(8)
 
-  //   $.resetMocks()
+    examplePOD4.extendFeature()
+
+    expect($('<div></div>').html(examplePOD4.html()).html()).toEqual('<div class="facility POD_ID"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><div class="extra"><div class="lbl">DOHMHPODLink:</div><div class="val">Link</div></div></div>')
+    expect(examplePOD4.html().data('feature')).toBe(examplePOD4)
+    expect(examplePOD4.html()).not.toBeNull()
+
+    $.resetMocks()
     
-  //   $(examplePOD4.html()).trigger('mouseover')
+    $(examplePOD4.html()).trigger('mouseover')
 
-  //   expect($.proxy).toHaveBeenCalledTimes(2)
+    expect($.proxy).toHaveBeenCalledTimes(2)
 
-  //   expect($.proxy.mock.calls[0][0]).toBe(examplePOD4.handleOver)
-  //   expect($.proxy.mock.calls[0][1]).toBe(examplePOD4)
+    expect($.proxy.mock.calls[0][0]).toBe(examplePOD4.handleOver)
+    expect($.proxy.mock.calls[0][1]).toBe(examplePOD4)
 
-  //   expect($.proxy.mock.calls[1][0]).toBe(examplePOD4.handleOut)
-  //   expect($.proxy.mock.calls[1][1]).toBe(examplePOD4)
-  // })
+    expect($.proxy.mock.calls[1][0]).toBe(examplePOD4.handleOut)
+    expect($.proxy.mock.calls[1][1]).toBe(examplePOD4)
+  })
 
-  // test('prepButton', () => {
-  //   expect.assertions(2)
-  //   expect(examplePOD1.prepButton()).toEqual($('<a class="btn rad-all prep" href="Link" target="_blank">Prepare For Your Visit</a>'))
-  //   expect(examplePOD1.prepButton()).not.toBeNull()
-  // })
+  test('prepButtons', () => {
+    expect.assertions(10)
+
+    examplePOD1.prepButtons().forEach((btn, i) => {
+      expect(btn.html()).toEqual(examplePOD1.get(`Label${i + 1}`))
+      expect(btn.attr('href')).toEqual(examplePOD1.get(`Link${i + 1}`))
+    })
+
+    examplePOD2.prepButtons().forEach((btn, i) => {
+      expect(btn.html()).toEqual(examplePOD2.get(`Label${i + 1}`))
+      expect(btn.attr('href')).toEqual(examplePOD2.get(`Link${i + 1}`))
+    })
+
+  })
 
   test('getTip', () => {
     expect.assertions(2)
@@ -212,11 +223,6 @@ describe('getStatus', () => {
     expect.assertions(1)
     expect(examplePOD6.getOpeningTime()).toBeUndefined()
   })
-  // test('getPODLink', () => {
-  //   expect.assertions(2)
-  //   expect(examplePOD1.getPODLink()).toBe('Link')
-  //   expect(examplePOD1.getPODLink()).not.toBeNull()
-  // })
 
   test('getWaitTime', () => {
     expect.assertions(2)
@@ -306,4 +312,11 @@ describe('getStatus', () => {
   
   })
 
-});
+  test('extras', () => {
+    expect.assertions(2)
+
+    expect(examplePOD1.extras().html()).toBe('<div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div>')
+    expect(examplePOD2.extras()).toBeUndefined()
+  })
+
+})

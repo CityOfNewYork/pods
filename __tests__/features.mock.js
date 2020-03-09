@@ -2,7 +2,9 @@ import OlFeature from 'ol/Feature'
 import Content from 'nyc-lib/nyc/Content'
 import decorations from '../src/js/decorations'
 import Point from 'ol/geom/Point';
+import pods from '../src/js/pods'
 
+const mockApp = {remove: []}
 
 let messages = [
   {
@@ -26,11 +28,19 @@ const examplePOD1 = new OlFeature({
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: 'Opening_Time',
-  LabelPos: 'N',
-  DOHMHPODLink: 'Link'
+  LabelPos: 'N S E W',
+  Link1: 'Link1-1',
+  Label1: 'Label1-1',
+  Link2: 'Link2-1',
+  Label2: 'Label2-1',
+  Link3: 'Link3-1',
+  Label3: 'Label3-1',
+  Icon: 'library-name/icon-name-1#ff0000',
+  extra1: 'Extra1',
+  extra2: 'Extra2'
 })
 
-$.extend(examplePOD1, decorations, {content: content})
+$.extend(examplePOD1, decorations, {content: content, app: mockApp})
 examplePOD1.extendFeature()
 
 //active, open
@@ -45,11 +55,14 @@ const examplePOD2 = new OlFeature({
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: 'Opening_Time',
-  LabelPos: 'S',
-  DOHMHPODLink: 'Link'
+  LabelPos: 'N S',
+  Link1: 'Link1-2',
+  Label1: 'Label1-2',
+  Link2: 'Link2-2',
+  Label2: 'Label2-2'
 })
 
-$.extend(examplePOD2, decorations, {content: content})
+$.extend(examplePOD2, decorations, {content: content, app: mockApp})
 examplePOD2.extendFeature()
 
 const examplePOD3 = new OlFeature({
@@ -63,11 +76,16 @@ const examplePOD3 = new OlFeature({
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: '1/10/2019,3:55 PM',
-  LabelPos: 'E',
-  DOHMHPODLink: 'Link'
+  LabelPos: 'W N S',
+  Link1: 'Link1-3',
+  Label1: 'Label1-3',
+  Link2: 'Link2-3',
+  Label2: 'Label2-3',
+  Link3: 'Link3-3',
+  Label3: 'Label3-3'
 })
 
-$.extend(examplePOD3, decorations, {content: content})
+$.extend(examplePOD3, decorations, {content: content, app: mockApp})
 examplePOD3.extendFeature()
 
 const examplePOD5 = new OlFeature({
@@ -77,14 +95,14 @@ const examplePOD5 = new OlFeature({
   Borough: 'Borough',
   ZIP: 'Zip',
   DOECode: 'POD_ID',
-  Ops_status: 'Ops_status',
+  Ops_status: pods.NOT_ACTIVE_STATUS,
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: 'Opening_Time',
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD5, decorations, {content: content})
+$.extend(examplePOD5, decorations, {content: content, app: mockApp})
 examplePOD5.extendFeature()
 
 
@@ -105,7 +123,7 @@ const examplePOD4 = new OlFeature({
   Borough: 'Borough',
   ZIP: 'Zip',
   DOECode: 'POD_ID',
-  Ops_status: 'Ops_status',
+  Ops_status: 'Closed to Public',
   wait_time: 'Wait_Time',
   LatestDate: 'Latest_Update',
   OpeningTime: 'Opening_Time',
@@ -113,7 +131,7 @@ const examplePOD4 = new OlFeature({
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD4, decorations, {content: content})
+$.extend(examplePOD4, decorations, {content: content, app: mockApp})
 examplePOD4.extendFeature()
 
 const examplePOD6 = new OlFeature({
@@ -130,7 +148,36 @@ const examplePOD6 = new OlFeature({
   DOHMHPODLink: ''
 })
 
-$.extend(examplePOD6, decorations, {content: content})
+$.extend(examplePOD6, decorations, {content: content, app: mockApp})
 examplePOD6.extendFeature()
 
-module.exports = {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5, examplePOD6}
+
+//active, closed, no icon
+messages = [
+  {
+    title: 'title',
+    marquee: 'marquee',
+    splash: 'splash',
+    active: 'true'
+  }
+]
+content = new Content(messages)
+
+const examplePOD7 = new OlFeature({
+  PODSiteName: 'POD_Site_Name',
+  Address: 'Address',
+  Borough: 'Borough',
+  ZIP: 'Zip',
+  DOECode: 'POD_ID',
+  Ops_status: 'Closed to Public',
+  wait_time: 'Wait_Time',
+  LatestDate: 'Latest_Update',
+  OpeningTime: 'Opening_Time',
+  LabelPos: 'W',
+  DOHMHPODLink: 'Link'
+})
+
+$.extend(examplePOD7, decorations, {content: content, app: mockApp})
+examplePOD7.extendFeature()
+
+module.exports = {mockApp, examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5, examplePOD6, examplePOD7}
