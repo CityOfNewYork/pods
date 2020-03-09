@@ -10,9 +10,8 @@ import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Text from 'ol/style/Text'
 
-const iconLib = new IconLib()
-
 const facilityStyle = {
+  iconLib: new IconLib(),
   pointStyle: (feature, resolution) => {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
     const active = feature.getActive()
@@ -21,7 +20,7 @@ const facilityStyle = {
     const radius = facilityStyle.calcRadius(zoom)
 
     if (icon) {
-      return iconLib.style(icon, radius * 2)
+      return facilityStyle.iconLib.style(icon, radius * 2)
     }
 
     let fillColor = '#0080A9'
@@ -38,7 +37,6 @@ const facilityStyle = {
       }
     }
     
-
     return new Style({
       image: new Circle({
         fill: new Fill({
@@ -78,6 +76,7 @@ const facilityStyle = {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
     const idx = zoom - 14
     let pos = feature.get('LabelPos')
+    
     if (pos) {
       pos = pos.split(' ')[idx]
     }
@@ -135,7 +134,7 @@ const facilityStyle = {
         return left + spaceReplacer + facilityStyle.stringDivider(right, width, spaceReplacer)
       }
     }
-    return str;
+    return str
   }
 }
 

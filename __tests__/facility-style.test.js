@@ -1,11 +1,15 @@
-import facilityStyle from '../src/js/facility-style'
-import {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5} from './features.mock'
+import {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5,examplePOD7} from './features.mock'
 import OlStyleCircle from 'ol/style/Circle'
-
+import OlStyle from 'ol/style/Style'
+import OlStyleIcon from 'ol/style/Icon'
+import facilityStyle from '../src/js/facility-style'
 
 describe('pointStyle', () => {
   const calcRadius = facilityStyle.calcRadius
   beforeEach(() => {
+    facilityStyle.iconLib.style = jest.fn().mockImplementation(() => {
+      return new OlStyle({})
+    })
     $.resetMocks()
     facilityStyle.calcRadius = jest.fn().mockImplementation(() => {
       return 1
@@ -15,20 +19,27 @@ describe('pointStyle', () => {
     facilityStyle.calcRadius = calcRadius
   })
   test('active is true, facility is closed', () => {
-    expect.assertions(9)
+    expect.assertions(14)
 
-    const style = facilityStyle.pointStyle(examplePOD1, 305.748113140705)
+    let style = facilityStyle.pointStyle(examplePOD1, 305.748113140705)
 
     expect(examplePOD1.getStatus()).toBe('Closed to Public')
     expect(examplePOD1.getActive()).toBe('true')
+    expect(facilityStyle.iconLib.style).toHaveBeenCalledTimes(1)
+    expect(facilityStyle.iconLib.style.mock.calls[0][0]).toBe(examplePOD1.get('Icon'))
+    expect(facilityStyle.iconLib.style.mock.calls[0][1]).toBe(2 * facilityStyle.calcRadius.mock.results[0].value)
+    expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
+    expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(9)
+
+    style = facilityStyle.pointStyle(examplePOD7, 305.748113140705)
+    
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#999999')
     expect(style.getImage().getStroke().getColor()).toBe('#1A1A1A')
     expect(style.getImage().getStroke().getWidth()).toBe(1)
-    expect(style.getImage().getRadius()).toBe(facilityStyle.calcRadius.mock.results[0].value)
-    expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
+    expect(style.getImage().getRadius()).toBe(facilityStyle.calcRadius.mock.results[1].value)
+    expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(2)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(9)
- 
   })
 
   test('active is true, facility is open', () => {
@@ -45,7 +56,6 @@ describe('pointStyle', () => {
     expect(style.getImage().getRadius()).toBe(facilityStyle.calcRadius.mock.results[0].value)
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(9)
-    
   })
 
   test('active is true, facility OpeningTime soon', () => {
@@ -55,6 +65,7 @@ describe('pointStyle', () => {
 
     expect(examplePOD3.getStatus()).toBe('Opening Soon')
     expect(examplePOD3.getActive()).toBe('true')
+
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#F3E318')
     expect(style.getImage().getStroke().getColor()).toBe('#1A1A1A')
@@ -83,11 +94,10 @@ describe('pointStyle', () => {
   })
 
   test('active is false', () => {
-    expect.assertions(9)
+    expect.assertions(8)
 
     const style = facilityStyle.pointStyle(examplePOD4, 305.748113140705)
 
-    expect(examplePOD4.getStatus()).toBe('Inactive')
     expect(examplePOD4.getActive()).toBe('false')
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#0080A9')
@@ -181,11 +191,9 @@ describe('textStyle', () => {
   })
 
   test('LabelPos - N', () => {
-    expect.assertions(15)
+    expect.assertions(14)
 
     const style = facilityStyle.textStyle(examplePOD1, 9.554628535647032)
-
-    expect(examplePOD1.get('LabelPos')).toBe('N')
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(14)
@@ -209,14 +217,12 @@ describe('textStyle', () => {
   })
 
   test('LabelPos - S', () => {
-    expect.assertions(15)
+    expect.assertions(14)
 
-    const style = facilityStyle.textStyle(examplePOD2, 9.554628535647032)
-
-    expect(examplePOD2.get('LabelPos')).toBe('S')
+    const style = facilityStyle.textStyle(examplePOD2, 4.777314267823516)
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
-    expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(14)
+    expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(15)
 
     expect(facilityStyle.stringDivider).toHaveBeenCalledTimes(1)
     expect(facilityStyle.stringDivider.mock.calls[0][0]).toBe(examplePOD2.getName())
@@ -234,17 +240,15 @@ describe('textStyle', () => {
   })
 
   test('LabelPos - E', () => {
-    expect.assertions(15)
+    expect.assertions(14)
 
-    const style = facilityStyle.textStyle(examplePOD3, 9.554628535647032)
-
-    expect(examplePOD3.get('LabelPos')).toBe('E')
+    const style = facilityStyle.textStyle(examplePOD1, 2.388657133911758)
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
-    expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(14)
+    expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(16)
 
     expect(facilityStyle.stringDivider).toHaveBeenCalledTimes(1)
-    expect(facilityStyle.stringDivider.mock.calls[0][0]).toBe(examplePOD3.getName())
+    expect(facilityStyle.stringDivider.mock.calls[0][0]).toBe(examplePOD1.getName())
     expect(facilityStyle.stringDivider.mock.calls[0][1]).toBe(24)
     expect(facilityStyle.stringDivider.mock.calls[0][2]).toBe('\n')
 
@@ -284,11 +288,9 @@ describe('textStyle', () => {
   })
 
   test('LabelPos - not provided(default)', () => {
-    expect.assertions(15)
+    expect.assertions(28)
 
-    const style = facilityStyle.textStyle(examplePOD5, 9.554628535647032)
-
-    expect(examplePOD5.get('LabelPos')).toBeUndefined()
+    let style = facilityStyle.textStyle(examplePOD5, 9.554628535647032)
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(14)
@@ -306,6 +308,26 @@ describe('textStyle', () => {
     expect(style.getText().getTextAlign()).toBe('left')
     expect(style.getText().getStroke().getColor()).toBe('rgb(254,252,213)')
     expect(style.getText().getStroke().getWidth()).toBe(5)
+
+
+    style = facilityStyle.textStyle(examplePOD2, 2.388657133911758)
+
+    expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(2)
+    expect(facilityStyle.calcRadius.mock.calls[1][0]).toBe(16)
+
+    expect(facilityStyle.stringDivider).toHaveBeenCalledTimes(2)
+    expect(facilityStyle.stringDivider.mock.calls[1][0]).toBe(examplePOD2.getName())
+    expect(facilityStyle.stringDivider.mock.calls[1][1]).toBe(24)
+    expect(facilityStyle.stringDivider.mock.calls[1][2]).toBe('\n')
+
+    expect(style.getText().getFill().getColor()).toBe('#000')
+    expect(style.getText().getFont()).toBe('bold 10px sans-serif')
+    expect(style.getText().getText()).toBe('siteName')
+    expect(style.getText().getOffsetX()).toBe(1.5 * 10)
+    expect(style.getText().getOffsetY()).toBe(0)
+    expect(style.getText().getTextAlign()).toBe('left')
+    expect(style.getText().getStroke().getColor()).toBe('rgb(254,252,213)')
+    expect(style.getText().getStroke().getWidth()).toBe(5)  
   })
 
 })
