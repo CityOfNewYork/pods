@@ -6093,10 +6093,10 @@ nyc-build-helper@^0.0.38:
     webpack "4.19.1"
     zip-dir "^1.0.2"
 
-nyc-lib@^1.3.77:
-  version "1.3.77"
-  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.3.77.tgz#6bbacd86a7f4a6bf62ca689043d205c17f6ef2f4"
-  integrity sha512-PU88SH+aonntbEKnfbCeEmE63WuGAlnxUpkTCzH03ZM4rC7GLd5ndbI3BhdL717vNlmYcxrBi5wUI/gdWmWorQ==
+nyc-lib@^1.3.78:
+  version "1.3.78"
+  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.3.78.tgz#d75de740f066578ce897d6cc26e0c791d4e6e7fe"
+  integrity sha512-NKOocmbb0Nu5rBD6OCzDJtFJppQ3VpalOAofV0zcTDRjtYCPEdtMnpAddV+Ze85zTc/yU+4xM7QLE1QjTIZ5WQ==
   dependencies:
     eslint-config-openlayers "^11.0.0"
     eslint-import-resolver-alias "^1.1.2"
@@ -6110,6 +6110,7 @@ nyc-lib@^1.3.77:
     postcss-import "^11.1.0"
     proj4 "^2.4.4"
     shapefile "^0.6.6"
+    simple-statistics "^7.0.8"
     text-encoding "^0.6.4"
 
 oauth-sign@~0.9.0:
@@ -7443,6 +7444,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+simple-statistics@^7.0.8:
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/simple-statistics/-/simple-statistics-7.0.8.tgz#662c56769945812237891adaec690f6da90fe372"
+  integrity sha512-cKK4U1ciuG7NG2P/FfbYtfoZYvn6VkIHxurRGuqW1bBOrKY0WK1Zr9C3EFjh8RAOldIRznm5kQvWTa3bsvkMIA==
 
 sisteransi@^1.0.3:
   version "1.0.4"
