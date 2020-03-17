@@ -303,7 +303,7 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
 } */
 .chc-chc.Ops_status label:before,
 .facility.open-to-public .name:before,
-.facility.OpeningTime-soon .name:before,
+.facility.opening-soon .name:before,
 .facility.closed-to-public .name:before {
   display: inline-block;
   width: 18px;
@@ -315,7 +315,7 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
 }
 .translated-rtl .chc-chc.Ops_status label:before,
 .translated-rtl .facility.open-to-public .name:before,
-.translated-rtl .facility.OpeningTime-soon .name:before,
+.translated-rtl .facility.opening-soon .name:before,
 .translated-rtl .facility.closed-to-public .name:before {
   margin: 0 3px -4px 3px;
 }
@@ -348,7 +348,7 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
 }
 
 .chc-chc.Ops_status label[for=chc-chc-6]:before,
-.facility.OpeningTime-soon .name:before   {
+.facility.opening-soon .name:before   {
   background-color: #F3E318;
 }
 
