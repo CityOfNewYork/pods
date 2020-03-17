@@ -98,11 +98,12 @@ const examplePOD5 = new OlFeature({
   Borough: 'Borough',
   ZIP: 'Zip',
   DOECode: 'POD_ID-5',
+  LabelPos: '',
   Ops_status: pods.NOT_ACTIVE_STATUS,
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: 'Opening_Time',
-  DOHMHPODLink: 'Link'
+  DOHMHPODLink: 'Link-5'
 })
 
 $.extend(examplePOD5, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})

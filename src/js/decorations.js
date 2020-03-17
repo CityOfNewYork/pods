@@ -4,6 +4,34 @@
 
 import pods from './pods'
 
+const FIELDS = [
+  'OBJECTID',
+  'geometry',
+  'ActivePOD',
+  'DOECode',
+  'PODSiteName',
+  'Address',
+  'Borough',
+  'ZIP',
+  'Ops_status',
+  'OpeningTime',
+  'wait_time',
+  'LatestDate',
+  'LabelPos',
+  'x',
+  'y',
+  'DOHMHPODLink',
+  'Link1',
+  'Label1',
+  'Link2',
+  'Label2',
+  'Link3',
+  'Label3',
+  'Icon',
+  'search_label',
+  '__distance'
+]
+
 const decorations = {
   extendFeature() {
     this.setId(this.get('DOECode'))
@@ -34,16 +62,38 @@ const decorations = {
       .append(this.detailsHtml())
       .append(this.mapButton())
       .append(this.directionsButton())
-      .append(this.prepButton())
+      .append(this.prepButton('DOHMHPODLink'))
+      .append(this.extraButtons())
+      .append(this.extraAnything())
       .data('feature', this)
       .mouseover($.proxy(this.handleOver, this))
       .mouseout($.proxy(this.handleOut, this))
   },
-  prepButton() {
-    const lnk = this.get('DOHMHPODLink')
-    if (lnk) {
-      return $(`<a class="btn rad-all prep" href="${lnk}" target="_blank">Prepare for your visit</a>`)
+  extraAnything() {
+    const html = $('<div class="extra"></div>')
+    const props = this.getProperties()
+    Object.keys(props).forEach(prop => {
+      if ($.inArray(prop, FIELDS) === -1 && props[prop]) {
+        html.append(`<div class="lbl">${prop}:</div><div class="val">${props[prop]}</div>`)
+      }
+    })
+    if (html.html()) {
+      return html
     }
+  },
+  prepButton(lnkProp, lblProp) {
+    const lnk = this.get(lnkProp)
+    if (lnk) {
+      const lbl = this.get(`${lblProp}`) || 'Prepare for your visit'
+      return $(`<a class="btn rad-all prep" href="${lnk}" target="_blank">${lbl}</a>`)
+    }
+  },
+  extraButtons() {
+    const buttons = []
+    for (let i = 1; i < 4; i++) {
+      buttons.push(this.prepButton(`Link${i}`, `Label${i}`))
+    }
+    return buttons
   },
   getTip() {
     return $('<div></div>')
