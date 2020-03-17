@@ -3,6 +3,7 @@ import Content from 'nyc-lib/nyc/Content'
 import decorations from '../src/js/decorations'
 import Point from 'ol/geom/Point';
 import pods from '../src/js/pods'
+import MapMgr from 'nyc-lib/nyc/ol/MapMgr'
 
 const mockApp = {remove: []}
 
@@ -23,12 +24,13 @@ const examplePOD1 = new OlFeature({
   Address: 'Address',
   Borough: 'Borough',
   ZIP: 'Zip',
-  DOECode: 'POD_ID',
+  DOECode: 'POD_ID-1',
   Ops_status: 'Closed to Public',
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: 'Opening_Time',
   LabelPos: 'N S E W',
+  DOHMHPODLink: 'DOHMHPODLink-1',
   Link1: 'Link1-1',
   Label1: 'Label1-1',
   Link2: 'Link2-1',
@@ -40,7 +42,7 @@ const examplePOD1 = new OlFeature({
   extra2: 'Extra2'
 })
 
-$.extend(examplePOD1, decorations, {content: content, app: mockApp})
+$.extend(examplePOD1, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD1.extendFeature()
 
 //active, open
@@ -50,19 +52,20 @@ const examplePOD2 = new OlFeature({
   Address: 'Address',
   Borough: 'Borough',
   ZIP: 'Zip',
-  DOECode: 'POD_ID',
+  DOECode: 'POD_ID-2',
   Ops_status: 'Open to Public',
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
   OpeningTime: 'Opening_Time',
   LabelPos: 'N S',
+  DOHMHPODLink: 'DOHMHPODLink-2',
   Link1: 'Link1-2',
   Label1: 'Label1-2',
   Link2: 'Link2-2',
   Label2: 'Label2-2'
 })
 
-$.extend(examplePOD2, decorations, {content: content, app: mockApp})
+$.extend(examplePOD2, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD2.extendFeature()
 
 const examplePOD3 = new OlFeature({
@@ -71,7 +74,7 @@ const examplePOD3 = new OlFeature({
   Address: 'Address',
   Borough: 'Borough',
   ZIP: 'Zip',
-  DOECode: 'POD_ID',
+  DOECode: 'POD_ID-3',
   Ops_status: 'Mobilizing',
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
@@ -85,7 +88,7 @@ const examplePOD3 = new OlFeature({
   Label3: 'Label3-3'
 })
 
-$.extend(examplePOD3, decorations, {content: content, app: mockApp})
+$.extend(examplePOD3, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD3.extendFeature()
 
 const examplePOD5 = new OlFeature({
@@ -94,7 +97,7 @@ const examplePOD5 = new OlFeature({
   Address: 'Address',
   Borough: 'Borough',
   ZIP: 'Zip',
-  DOECode: 'POD_ID',
+  DOECode: 'POD_ID-5',
   Ops_status: pods.NOT_ACTIVE_STATUS,
   wait_time: 'Wait_Time',
   LatestDate: '1/10/2019,3:54 PM',
@@ -102,7 +105,7 @@ const examplePOD5 = new OlFeature({
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD5, decorations, {content: content, app: mockApp})
+$.extend(examplePOD5, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD5.extendFeature()
 
 
@@ -122,7 +125,7 @@ const examplePOD4 = new OlFeature({
   Address: 'Address',
   Borough: 'Borough',
   ZIP: 'Zip',
-  DOECode: 'POD_ID',
+  DOECode: 'POD_ID-4',
   Ops_status: 'Closed to Public',
   wait_time: 'Wait_Time',
   LatestDate: 'Latest_Update',
@@ -131,7 +134,7 @@ const examplePOD4 = new OlFeature({
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD4, decorations, {content: content, app: mockApp})
+$.extend(examplePOD4, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD4.extendFeature()
 
 const examplePOD6 = new OlFeature({
@@ -148,7 +151,7 @@ const examplePOD6 = new OlFeature({
   DOHMHPODLink: ''
 })
 
-$.extend(examplePOD6, decorations, {content: content, app: mockApp})
+$.extend(examplePOD6, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD6.extendFeature()
 
 
@@ -168,7 +171,7 @@ const examplePOD7 = new OlFeature({
   Address: 'Address',
   Borough: 'Borough',
   ZIP: 'Zip',
-  DOECode: 'POD_ID',
+  DOECode: 'POD_ID-7',
   Ops_status: 'Closed to Public',
   wait_time: 'Wait_Time',
   LatestDate: 'Latest_Update',
@@ -177,7 +180,7 @@ const examplePOD7 = new OlFeature({
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD7, decorations, {content: content, app: mockApp})
+$.extend(examplePOD7, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
 examplePOD7.extendFeature()
 
 module.exports = {mockApp, examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5, examplePOD6, examplePOD7}

@@ -64,7 +64,7 @@ describe('decorations', () => {
 
     examplePOD1.extendFeature()
 
-    expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class="facility POD_ID closed-to-public"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link1-1" target="_blank">Label1-1</a><a class="btn rad-all prep" href="Link2-1" target="_blank">Label2-1</a><a class="btn rad-all prep" href="Link3-1" target="_blank">Label3-1</a><div class="extra"><div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div></div></div>`)
+    expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class=\"facility POD_ID-1 closed-to-public\"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class=\"btn rad-all prep\" href=\"DOHMHPODLink-1\" target=\"_blank\">Prepare for your visit</a></div>`)
     expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
     expect(examplePOD1.html()).not.toBeNull()  
 
@@ -87,7 +87,7 @@ describe('decorations', () => {
 
     examplePOD4.extendFeature()
 
-    expect($('<div></div>').html(examplePOD4.html()).html()).toEqual('<div class="facility POD_ID"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><div class="extra"><div class="lbl">DOHMHPODLink:</div><div class="val">Link</div></div></div>')
+    expect($('<div></div>').html(examplePOD4.html()).html()).toEqual('<div class="facility POD_ID-4"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare for your visit</a></div>')
     expect(examplePOD4.html().data('feature')).toBe(examplePOD4)
     expect(examplePOD4.html()).not.toBeNull()
 
@@ -104,19 +104,14 @@ describe('decorations', () => {
     expect($.proxy.mock.calls[1][1]).toBe(examplePOD4)
   })
 
-  test('prepButtons', () => {
-    expect.assertions(10)
+  test('prepButton', () => {
+    expect.assertions(4)
 
-    examplePOD1.prepButtons().forEach((btn, i) => {
-      expect(btn.html()).toEqual(examplePOD1.get(`Label${i + 1}`))
-      expect(btn.attr('href')).toEqual(examplePOD1.get(`Link${i + 1}`))
-    })
+    expect(examplePOD1.prepButton().html()).toEqual('Prepare for your visit')
+    expect(examplePOD1.prepButton().attr('href')).toEqual(examplePOD1.get('DOHMHPODLink'))
 
-    examplePOD2.prepButtons().forEach((btn, i) => {
-      expect(btn.html()).toEqual(examplePOD2.get(`Label${i + 1}`))
-      expect(btn.attr('href')).toEqual(examplePOD2.get(`Link${i + 1}`))
-    })
-
+    expect(examplePOD2.prepButton().html()).toEqual('Prepare for your visit')
+    expect(examplePOD2.prepButton().attr('href')).toEqual(examplePOD2.get('DOHMHPODLink'))
   })
 
   test('getTip', () => {
@@ -310,13 +305,6 @@ describe('getStatus', () => {
       
     })
   
-  })
-
-  test('extras', () => {
-    expect.assertions(2)
-
-    expect(examplePOD1.extras().html()).toBe('<div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div>')
-    expect(examplePOD2.extras()).toBeUndefined()
   })
 
 })

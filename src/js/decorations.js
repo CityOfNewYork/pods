@@ -4,32 +4,6 @@
 
 import pods from './pods'
 
-const FIELDS = [
-  'geometry',
-  'ActivePOD',
-  'DOECode',
-  'PODSiteName',
-  'Address',
-  'Borough',
-  'ZIP',
-  'Ops_status',
-  'OpeningTime',
-  'wait_time',
-  'LatestDate',
-  'LabelPos',
-  'x',
-  'y',
-  'Link1',
-  'Label1',
-  'Link2',
-  'Label2',
-  'Link3',
-  'Label3',
-  'Icon',
-  'search_label',
-  '__distance'
-]
-
 const decorations = {
   extendFeature() {
     this.setId(this.get('DOECode'))
@@ -60,34 +34,16 @@ const decorations = {
       .append(this.detailsHtml())
       .append(this.mapButton())
       .append(this.directionsButton())
-      .append(this.prepButtons())
-      .append(this.extras())
+      .append(this.prepButton())
       .data('feature', this)
       .mouseover($.proxy(this.handleOver, this))
       .mouseout($.proxy(this.handleOut, this))
   },
-  extras() {
-    const html = $('<div class="extra"></div>')
-    const props = this.getProperties()
-    Object.keys(props).forEach(prop => {
-      if ($.inArray(prop, FIELDS) === -1 && props[prop]) {
-        html.append(`<div class="lbl">${prop}:</div><div class="val">${props[prop]}</div>`)
-      }
-    })
-    if (html.html()) {
-      return html
+  prepButton() {
+    const lnk = this.get('DOHMHPODLink')
+    if (lnk) {
+      return $(`<a class="btn rad-all prep" href="${lnk}" target="_blank">Prepare for your visit</a>`)
     }
-  },
-  prepButtons() {
-    const buttons = []
-    for (let i = 1; i < 4; i++) {
-      const lnk = this.get(`Link${i}`)
-      const lbl = this.get(`Label${i}`)
-      if (lnk) {
-        buttons.push($(`<a class="btn rad-all prep" href="${lnk}" target="_blank">${lbl}</a>`))
-      }
-    }
-    return buttons
   },
   getTip() {
     return $('<div></div>')
