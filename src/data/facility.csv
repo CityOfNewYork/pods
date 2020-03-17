@@ -1,4 +1,4 @@
-OBJECTID,DOECode,PODSiteName,Address,Borough,ZIP,x,y,Ops_status,wait_time,LatestDate,OpeningTime,DOHMHPODLink,LabelPos,ActivePOD
+OBJECTID,DOECode,PODSiteName,Address,Borough,ZIP,y,x,Ops_status,wait_time,LatestDate,OpeningTime,DOHMHPODLink,LabelPos,ActivePOD
 1,K001,K001 - P.S. 1 Bergen,309 47th Street,Brooklyn,11220,175732.7464,980840.0144,Inactive,,,,https://www1.nyc.gov/site/doh/health/emergency-preparedness/emergency-medication-distribution.page,E,1
 2,K016,K016 - P.S. 16 Leonard Dunkly,157 Wilson Street,Brooklyn,11211,196497.945,994930.2916,Open to Public,30,4/2/2019 17:52,,https://www1.nyc.gov/site/doh/health/emergency-preparedness/emergency-medication-distribution.page,E,1
 3,K043,K043 - I.S. 98 Bay Academy,1401 Emmons Avenue,Brooklyn,11235,151723.1188,997016.5653,Open to Public,30,11/8/2019 20:30,,https://www1.nyc.gov/site/doh/health/emergency-preparedness/emergency-medication-distribution.page,E,1
