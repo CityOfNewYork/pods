@@ -3,6 +3,7 @@ import OlStyleCircle from 'ol/style/Circle'
 import OlStyle from 'ol/style/Style'
 import OlStyleIcon from 'ol/style/Icon'
 import facilityStyle from '../src/js/facility-style'
+import nycOl from 'nyc-lib/nyc/ol'
 
 describe('pointStyle', () => {
   const calcRadius = facilityStyle.calcRadius
@@ -106,7 +107,7 @@ describe('pointStyle', () => {
     expect(style.getImage().getRadius()).toBe(facilityStyle.calcRadius.mock.results[0].value)
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(9)
-    
+
   })
 
 })
@@ -158,7 +159,6 @@ describe('highlightStyle', () => {
     expect(style.getImage().getRadius()).toBe(1.5)
   })
 
-
 })
 
 describe('textStyle', () => {
@@ -183,7 +183,7 @@ describe('textStyle', () => {
   test('no style - low zoom', () => {
     expect.assertions(3)
 
-    const style = facilityStyle.textStyle(examplePOD1, 305.748113140705)
+    const style = facilityStyle.textStyle(examplePOD1, nycOl.TILE_GRID.getResolutions()[9])
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(0)
     expect(facilityStyle.stringDivider).toHaveBeenCalledTimes(0)
@@ -193,7 +193,7 @@ describe('textStyle', () => {
   test('LabelPos - N', () => {
     expect.assertions(14)
 
-    const style = facilityStyle.textStyle(examplePOD1, 9.554628535647032)
+    const style = facilityStyle.textStyle(examplePOD1, nycOl.TILE_GRID.getResolutions()[14])
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(14)
@@ -219,7 +219,7 @@ describe('textStyle', () => {
   test('LabelPos - S', () => {
     expect.assertions(14)
 
-    const style = facilityStyle.textStyle(examplePOD2, 4.777314267823516)
+    const style = facilityStyle.textStyle(examplePOD2, nycOl.TILE_GRID.getResolutions()[15])
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(15)
@@ -242,7 +242,7 @@ describe('textStyle', () => {
   test('LabelPos - E', () => {
     expect.assertions(14)
 
-    const style = facilityStyle.textStyle(examplePOD1, 2.388657133911758)
+    const style = facilityStyle.textStyle(examplePOD1, nycOl.TILE_GRID.getResolutions()[16])
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(16)
@@ -265,7 +265,7 @@ describe('textStyle', () => {
   test('LabelPos - W', () => {
     expect.assertions(15)
 
-    const style = facilityStyle.textStyle(examplePOD4, 9.554628535647032)
+    const style = facilityStyle.textStyle(examplePOD4, nycOl.TILE_GRID.getResolutions()[14])
 
     expect(examplePOD4.get('LabelPos')).toBe('W')
 
@@ -290,7 +290,7 @@ describe('textStyle', () => {
   test('LabelPos - not provided(default)', () => {
     expect.assertions(28)
 
-    let style = facilityStyle.textStyle(examplePOD5, 9.554628535647032)
+    let style = facilityStyle.textStyle(examplePOD5, nycOl.TILE_GRID.getResolutions()[14])
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(14)
@@ -310,7 +310,8 @@ describe('textStyle', () => {
     expect(style.getText().getStroke().getWidth()).toBe(5)
 
 
-    style = facilityStyle.textStyle(examplePOD2, 2.388657133911758)
+    let z = 1
+    style = facilityStyle.textStyle(examplePOD2, nycOl.TILE_GRID.getResolutions()[16])
 
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(2)
     expect(facilityStyle.calcRadius.mock.calls[1][0]).toBe(16)
@@ -323,9 +324,9 @@ describe('textStyle', () => {
     expect(style.getText().getFill().getColor()).toBe('#000')
     expect(style.getText().getFont()).toBe('bold 10px sans-serif')
     expect(style.getText().getText()).toBe('siteName')
-    expect(style.getText().getOffsetX()).toBe(1.5 * 10)
-    expect(style.getText().getOffsetY()).toBe(0)
-    expect(style.getText().getTextAlign()).toBe('left')
+    expect(style.getText().getOffsetX()).toBe(0)
+    expect(style.getText().getOffsetY()).toBe(2.5 * 10)
+    expect(style.getText().getTextAlign()).toBe('center')
     expect(style.getText().getStroke().getColor()).toBe('rgb(254,252,213)')
     expect(style.getText().getStroke().getWidth()).toBe(5)  
   })
