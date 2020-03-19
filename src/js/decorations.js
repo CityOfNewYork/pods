@@ -43,11 +43,10 @@ const decorations = {
     )
     if (this.active === 'true') {
       const Ops_status = this.get('Ops_status')
-      if (!Ops_status || Ops_status === pods.NOT_ACTIVE_STATUS) {
+      const ActivePOD = this.get('ActivePOD')
+      if (`${ActivePOD}` !== '1' || !Ops_status || Ops_status === pods.NOT_ACTIVE_STATUS) {
         this.app.remove.push(this)
       }
-    } else {
-      this.app.remove.push(this)
     }
   },
   getName() {
