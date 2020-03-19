@@ -41,10 +41,13 @@ const decorations = {
       `<b><span class="srch-lbl-lg">${this.getName()}</span></b><br>
       <span class="srch-lbl-sm">${this.getAddress1()}</span>`
     )
+    const ActivePOD = this.get('ActivePOD')
+    if (`${ActivePOD}` !== '1') {
+      this.app.remove.push(this)
+    }
     if (this.active === 'true') {
       const Ops_status = this.get('Ops_status')
-      const ActivePOD = this.get('ActivePOD')
-      if (`${ActivePOD}` !== '1' || !Ops_status || Ops_status === pods.NOT_ACTIVE_STATUS) {
+      if (!Ops_status || Ops_status === pods.NOT_ACTIVE_STATUS) {
         this.app.remove.push(this)
       }
     }
