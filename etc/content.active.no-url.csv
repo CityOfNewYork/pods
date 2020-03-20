@@ -1,0 +1,9 @@
+key,value
+title,Points of Dispensing (POD) Finder
+marquee,DOHMH controlled content - any message you like goes here - updated via an uploaded CSV file.
+splash,"<h2>No POD activation is currently in place.</h2><p>Points of Dispensing (PODs) are temporary sites that are ready to open to provide life-saving medications to anyone who needs them during a communcable disease outbreak or after a biological attack. Sites are located throughout the city and are run by the NYC Department of Health and Mental Hygiene. All NYC POD sites are wheelchair accessible. For more information, please visit our <a href=https://www1.nyc.gov/site/doh/health/emergency-preparedness/emergency-medication-distribution.page>webpage.</a>"
+active,true
+pods_url,
+description,"Not all Points of Dispensing sites may be activated at the time of an event. Please continue checking this page to see which sites are activated following an event. If you do not live in NYC, please check with your local health department."
+.splash .btn-yes,Screen reader instructions
+.splash .btn-no,View map to find your closest POD site
