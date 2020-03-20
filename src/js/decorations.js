@@ -38,9 +38,9 @@ const decorations = {
     this.active = this.content.message('active')
     this.set(
       'search_label',
-      `<b><span class="srch-lbl-lg">${this.getName()}</span></b><br>
-      <span class="srch-lbl-sm">${this.getAddress1()}</span>`
+      `<b><span class="srch-lbl-lg">${this.getName()}</span></b><br><span class="srch-lbl-sm">${this.getAddress1()}</span>`
     )
+
     const ActivePOD = this.get('ActivePOD')
     let removed = false
     if (`${ActivePOD}` !== '1') {
