@@ -10,11 +10,16 @@ import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Text from 'ol/style/Text'
 
+const ACTIVE_COLORS = {
+  'Open to Public': '#19DB17',
+  'Opening Soon': '#F3E318',
+  'Closed to Public': '#999999'
+}
+
 const facilityStyle = {
   iconLib: new IconLib(),
   pointStyle: (feature, resolution) => {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
-    const active = feature.getActive()
     const Ops_status = feature.getStatus()
     const icon = feature.get('Icon')
     const radius = facilityStyle.calcRadius(zoom)
@@ -24,19 +29,10 @@ const facilityStyle = {
     }
 
     let fillColor = '#0080A9'
-
-    if (active === 'true') {
-      if(Ops_status === 'Open to Public') {
-        fillColor = '#19DB17'
-      }
-      else if (Ops_status === 'Opening Soon') {
-        fillColor = '#F3E318'
-      }
-      else if (Ops_status === 'Closed to Public') {
-        fillColor = '#999999'
-      }
+    if (feature.active) {
+      fillColor = ACTIVE_COLORS[Ops_status] || fillColor
     }
-    
+
     return new Style({
       image: new Circle({
         fill: new Fill({

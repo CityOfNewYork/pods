@@ -7,7 +7,7 @@ import App from '../src/js/App';
 import GeoJson from 'ol/format/GeoJSON'
 import CsvPoint from 'nyc-lib/nyc/ol/format/CsvPoint'
 import Layer from 'ol/layer/Vector'
-import {examplePOD1, examplePOD2, examplePOD3, examplePOD5} from './features.mock'
+import {examplePOD1, examplePOD2, examplePOD3, examplePOD5} from './test-features'
 import Basemap from 'nyc-lib/nyc/ol/Basemap'
 
 jest.mock('nyc-lib/nyc/ol/format/CsvPoint')

@@ -1,4 +1,4 @@
-import {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5,examplePOD7} from './features.mock'
+import {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5,examplePOD7} from './test-features'
 import OlStyleCircle from 'ol/style/Circle'
 import OlStyle from 'ol/style/Style'
 import OlStyleIcon from 'ol/style/Icon'
@@ -25,7 +25,7 @@ describe('pointStyle', () => {
     let style = facilityStyle.pointStyle(examplePOD1, 305.748113140705)
 
     expect(examplePOD1.getStatus()).toBe('Closed to Public')
-    expect(examplePOD1.getActive()).toBe('true')
+    expect(examplePOD1.active).toBe(true)
     expect(facilityStyle.iconLib.style).toHaveBeenCalledTimes(1)
     expect(facilityStyle.iconLib.style.mock.calls[0][0]).toBe(examplePOD1.get('Icon'))
     expect(facilityStyle.iconLib.style.mock.calls[0][1]).toBe(2 * facilityStyle.calcRadius.mock.results[0].value)
@@ -49,7 +49,7 @@ describe('pointStyle', () => {
     const style = facilityStyle.pointStyle(examplePOD2, 305.748113140705)
 
     expect(examplePOD2.getStatus()).toBe('Open to Public')
-    expect(examplePOD2.getActive()).toBe('true')
+    expect(examplePOD2.active).toBe(true)
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#19DB17')
     expect(style.getImage().getStroke().getColor()).toBe('#1A1A1A')
@@ -65,7 +65,7 @@ describe('pointStyle', () => {
     const style = facilityStyle.pointStyle(examplePOD3, 305.748113140705)
 
     expect(examplePOD3.getStatus()).toBe('Opening Soon')
-    expect(examplePOD3.getActive()).toBe('true')
+    expect(examplePOD3.active).toBe(true)
 
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#F3E318')
@@ -83,7 +83,7 @@ describe('pointStyle', () => {
     const style = facilityStyle.pointStyle(examplePOD5, 305.748113140705)
 
     expect(examplePOD5.getStatus()).toBe('Inactive')
-    expect(examplePOD5.getActive()).toBe('true')
+    expect(examplePOD5.active).toBe(true)
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#0080A9')
     expect(style.getImage().getStroke().getColor()).toBe('#1A1A1A')
@@ -99,7 +99,7 @@ describe('pointStyle', () => {
 
     const style = facilityStyle.pointStyle(examplePOD4, 305.748113140705)
 
-    expect(examplePOD4.getActive()).toBe('false')
+    expect(examplePOD4.active).toBe(false)
     expect(style.getImage() instanceof OlStyleCircle).toBe(true)
     expect(style.getImage().getFill().getColor()).toBe('#0080A9')
     expect(style.getImage().getStroke().getColor()).toBe('#1A1A1A')

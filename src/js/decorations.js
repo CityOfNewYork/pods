@@ -35,7 +35,7 @@ const FIELDS = [
 const decorations = {
   extendFeature() {
     this.setId(this.get('DOECode'))
-    this.active = this.content.message('active')
+    this.active = this.content.message('active').toLowerCase() === 'true'
     this.set(
       'search_label',
       `<b><span class="srch-lbl-lg">${this.getName()}</span></b><br><span class="srch-lbl-sm">${this.getAddress1()}</span>`
@@ -47,7 +47,7 @@ const decorations = {
       this.app.remove.push(this)
       removed = true
     }
-    if (!removed && this.active === 'true') {
+    if (!removed && this.active) {
       const Ops_status = this.get('Ops_status')
       if (!Ops_status || Ops_status === pods.NOT_ACTIVE_STATUS) {
         this.app.remove.push(this)
@@ -60,7 +60,7 @@ const decorations = {
   html() {
     return $('<div class="facility"></div>')
       .addClass(this.getId())
-      .addClass(this.active === 'true' ? this.getStatus().replace(/ /g, '-').toLowerCase() : '')
+      .addClass(this.active ? this.getStatus().replace(/ /g, '-').toLowerCase() : '')
       .append(this.distanceHtml())
       .append(this.nameHtml())
       .append(this.distanceHtml(true))
@@ -114,9 +114,6 @@ const decorations = {
   getCityStateZip() {
     return `${this.get('Borough')}, NY ${this.get('ZIP')}`
   },
-  getActive() {
-    return this.active
-  },
   getStatus() {
     const Ops_status = this.get('Ops_status')
     switch(Ops_status) {
@@ -153,7 +150,7 @@ const decorations = {
     return this.get('wait_time')
   },
   detailsHtml() {
-    if (this.getActive() === 'true') {
+    if (this.active) {
       
       let ul = $('<ul></ul>')
 

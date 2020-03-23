@@ -24,6 +24,7 @@ class App extends FinderApp {
    * @param {module:nyc-lib/nyc/Content~Content} content The POD content
    */
   constructor(content) {
+    const active = content.message('active').toLowerCase() === 'true'
     let format
     let url = content.message('pods_url')
     if (url === '') {
@@ -50,7 +51,7 @@ class App extends FinderApp {
         { name: 'Borough', values: ['Manhattan'], label: 'Manhattan', checked: true }
       ]
     }]
-    if (content.message('active') === 'true') {
+    if (active) {
       filters.push({
         title: 'Status',
         choices: [
@@ -79,6 +80,8 @@ class App extends FinderApp {
       defaultDirectionsMode: 'WALKING',
       highlightStyle: facilityStyle.highlightStyle
     })
+
+    this.active = active
 
     this.view.fit(Basemap.EXTENT, {
       size: this.map.getSize(),
@@ -128,9 +131,8 @@ class App extends FinderApp {
   }
 
   addMarquee() {
-    const active = this.content.message('active')
     const marquee = this.content.message('marquee')
-    if (active === 'true') {
+    if (this.active) {
       $('body').addClass('alert')
       $('#marquee div>div>div').html(marquee)
     }
@@ -146,9 +148,7 @@ class App extends FinderApp {
   }
 
   addLegend() {
-    const active = this.content.message('active')
-
-    if(active == 'true'){
+    if (this.active) {
       let list = $('#facilities .list') 
       $('.legend').css('display', 'block')
       $('.legend').insertBefore(list)

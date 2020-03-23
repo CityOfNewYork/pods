@@ -1,6 +1,6 @@
 import decorations from '../src/js/decorations'
 import OlFeature from 'ol/Feature'
-import {mockApp, examplePOD1, examplePOD2, examplePOD3, examplePOD4, examplePOD6} from './features.mock'
+import {mockApp, examplePOD1, examplePOD2, examplePOD3, examplePOD4, examplePOD6} from './test-features'
 import nyc from 'nyc-lib/nyc'
 import pods from '../src/js/pods'
 
@@ -62,7 +62,7 @@ describe('extendFeature', () => {
     expect.assertions(5)
 
     examplePOD1.extendFeature()
-    expect(examplePOD1.active).toBe(examplePOD1.content.message('active'))
+    expect(examplePOD1.active).toBe(true)
     expect(examplePOD1.getId()).toBe(examplePOD1.get('DOECode'))
     expect(examplePOD1.get('search_label')).not.toBeNull()
     expect(examplePOD1.get('search_label')).toBe(`<b><span class="srch-lbl-lg">${examplePOD1.get('PODSiteName')}</span></b><br><span class="srch-lbl-sm">${examplePOD1.get('Address')}</span>`)
@@ -75,7 +75,7 @@ describe('extendFeature', () => {
     examplePOD1.content.messages.active = 'false'
 
     examplePOD1.extendFeature()
-    expect(examplePOD1.active).toBe(examplePOD1.content.message('active'))
+    expect(examplePOD1.active).toBe(false)
     expect(examplePOD1.getId()).toBe(examplePOD1.get('DOECode'))
     expect(examplePOD1.get('search_label')).not.toBeNull()
     expect(examplePOD1.get('search_label')).toBe(`<b><span class="srch-lbl-lg">${examplePOD1.get('PODSiteName')}</span></b><br><span class="srch-lbl-sm">${examplePOD1.get('Address')}</span>`)
@@ -89,7 +89,7 @@ describe('extendFeature', () => {
     examplePOD1.content.messages.active = 'false'
 
     examplePOD1.extendFeature()
-    expect(examplePOD1.active).toBe(examplePOD1.content.message('active'))
+    expect(examplePOD1.active).toBe(false)
     expect(examplePOD1.getId()).toBe(examplePOD1.get('DOECode'))
     expect(examplePOD1.get('search_label')).not.toBeNull()
     expect(examplePOD1.get('search_label')).toBe(`<b><span class="srch-lbl-lg">${examplePOD1.get('PODSiteName')}</span></b><br><span class="srch-lbl-sm">${examplePOD1.get('Address')}</span>`)
@@ -103,7 +103,7 @@ describe('extendFeature', () => {
     examplePOD1.set('ActivePOD', '0')
 
     examplePOD1.extendFeature()
-    expect(examplePOD1.active).toBe(examplePOD1.content.message('active'))
+    expect(examplePOD1.active).toBe(true)
     expect(examplePOD1.getId()).toBe(examplePOD1.get('DOECode'))
     expect(examplePOD1.get('search_label')).not.toBeNull()
     expect(examplePOD1.get('search_label')).toBe(`<b><span class="srch-lbl-lg">${examplePOD1.get('PODSiteName')}</span></b><br><span class="srch-lbl-sm">${examplePOD1.get('Address')}</span>`)
@@ -117,7 +117,7 @@ describe('extendFeature', () => {
     examplePOD1.set('Ops_status', undefined)
 
     examplePOD1.extendFeature()
-    expect(examplePOD1.active).toBe(examplePOD1.content.message('active'))
+    expect(examplePOD1.active).toBe(true)
     expect(examplePOD1.getId()).toBe(examplePOD1.get('DOECode'))
     expect(examplePOD1.get('search_label')).not.toBeNull()
     expect(examplePOD1.get('search_label')).toBe(`<b><span class="srch-lbl-lg">${examplePOD1.get('PODSiteName')}</span></b><br><span class="srch-lbl-sm">${examplePOD1.get('Address')}</span>`)
@@ -131,7 +131,7 @@ describe('extendFeature', () => {
     examplePOD1.set('Ops_status', pods.NOT_ACTIVE_STATUS)
 
     examplePOD1.extendFeature()
-    expect(examplePOD1.active).toBe(examplePOD1.content.message('active'))
+    expect(examplePOD1.active).toBe(true)
     expect(examplePOD1.getId()).toBe(examplePOD1.get('DOECode'))
     expect(examplePOD1.get('search_label')).not.toBeNull()
     expect(examplePOD1.get('search_label')).toBe(`<b><span class="srch-lbl-lg">${examplePOD1.get('PODSiteName')}</span></b><br><span class="srch-lbl-sm">${examplePOD1.get('Address')}</span>`)
