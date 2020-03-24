@@ -42,6 +42,8 @@ const decorations = {
     )
 
     const ActivePOD = this.get('ActivePOD')
+    console.warn(ActivePOD);
+    
     let removed = false
     if (`${ActivePOD}` !== '1') {
       this.app.remove.push(this)

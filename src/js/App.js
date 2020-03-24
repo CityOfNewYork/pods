@@ -185,6 +185,7 @@ class App extends FinderApp {
     this.remove.forEach(feature => {
       this.source.removeFeature(feature)
     })
+    this.source.allFeatures = this.source.getFeatures()
     super.ready(this.source.getFeatures())
   }
 }

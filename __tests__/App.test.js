@@ -699,6 +699,6 @@ test('ready', () => {
   expect(app.source.removeFeature.mock.calls[0][0]).toBe('mock-feature-0')
   expect(app.source.removeFeature.mock.calls[1][0]).toBe('mock-feature-1')
 
-  expect(app.source.getFeatures).toHaveBeenCalledTimes(1)
+  expect(app.source.getFeatures).toHaveBeenCalledTimes(2)
   expect(FinderApp.mock.instances[0].ready).toHaveBeenCalledTimes(1)
 })
