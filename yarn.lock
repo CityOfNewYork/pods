@@ -3362,7 +3362,24 @@ error@^7.0.2:
   dependencies:
     string-template "~0.2.1"
 
-es-abstract@^1.17.0, es-abstract@^1.17.0-next.1, es-abstract@^1.17.2:
+es-abstract@^1.17.0:
+  version "1.17.5"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.5.tgz#d8c9d1d66c8981fb9200e2251d799eee92774ae9"
+  integrity sha512-BR9auzDbySxOcfog0tLECW8l28eRGpDpU3Dm3Hp4q/N+VtLTmyj4EUN088XZWQDW/hzj6sYRDXeOFsaAODKvpg==
+  dependencies:
+    es-to-primitive "^1.2.1"
+    function-bind "^1.1.1"
+    has "^1.0.3"
+    has-symbols "^1.0.1"
+    is-callable "^1.1.5"
+    is-regex "^1.0.5"
+    object-inspect "^1.7.0"
+    object-keys "^1.1.1"
+    object.assign "^4.1.0"
+    string.prototype.trimleft "^2.1.1"
+    string.prototype.trimright "^2.1.1"
+
+es-abstract@^1.17.0-next.1, es-abstract@^1.17.2:
   version "1.17.4"
   resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.4.tgz#e3aedf19706b20e7c2594c35fc0d57605a79e184"
   integrity sha512-Ae3um/gb8F0mui/jPL+QiqmglkUsaQf7FwBEHYIFkztkneosu9imhqHpBzQ3h1vit8t5iQ74t6PEVvphBZiuiQ==
@@ -6083,10 +6100,10 @@ nyc-build-helper@^0.0.38:
     webpack "4.19.1"
     zip-dir "^1.0.2"
 
-nyc-lib@^1.3.79:
-  version "1.3.79"
-  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.3.79.tgz#1ca2049503f3e963cc34b593593bda9c5979390d"
-  integrity sha512-28IfH4cCalogooK+b0Mp14e+xIV1x33/E9Gi8rTPMf4xG5hXLDCFQOEe86L6mnUSHTad1UjuOoWao/9N0HmGGw==
+nyc-lib@^1.3.80:
+  version "1.3.80"
+  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.3.80.tgz#12fe65a08d3a13c503d8745efbf6fd1663987f1f"
+  integrity sha512-xCJmy5AX92pZHF9C1JpuYUxJA8Z0DZ0kfIPw9uNKJvz9G1fSc3xtSZm354SCerLNqbgEH2VAPzuJyytQfQ5z2Q==
   dependencies:
     eslint-config-openlayers "^11.0.0"
     eslint-import-resolver-alias "^1.1.2"
