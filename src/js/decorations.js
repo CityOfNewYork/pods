@@ -147,7 +147,12 @@ const decorations = {
     }
   },
   getWaitTime() {
-    return this.get('wait_time')
+    const wait = this.get('wait_time')
+    if (wait === undefined || wait === null || wait === '' || isNaN(wait)) {
+      return undefined
+    } else {
+      return wait * 1
+    }
   },
   detailsHtml() {
     if (this.active) {
@@ -155,7 +160,7 @@ const decorations = {
       let ul = $('<ul></ul>')
 
       if (this.getStatus() === 'Open to Public') {
-        const wait_time = this.getWaitTime() ? this.getWaitTime() + ' minutes' : 'N/A'
+        const wait_time = this.getWaitTime() != undefined ? this.getWaitTime() + ' minutes' : 'N/A'
         const waitTime = `<li><b>Wait time: </b>${wait_time}</li>`
 
         ul.append(waitTime)

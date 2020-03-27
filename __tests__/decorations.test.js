@@ -298,13 +298,60 @@ test('getOpeningTime - no time', () => {
   expect.assertions(1)
   expect(examplePOD6.getOpeningTime()).toBeUndefined()
 })
-
-test('getWaitTime', () => {
-  expect.assertions(2)
-  expect(examplePOD1.getWaitTime()).toBe(`${examplePOD1.get('wait_time')}`)
-  expect(examplePOD1.getWaitTime()).not.toBeNull()
+describe('getWaitTime', () => {
+  afterEach(() => {
+    examplePOD1.set('wait_time', 'Wait_Time')
+  })
+  test('getWaitTime - waitTime is number 0', () => {
+    expect.assertions(2)
+    examplePOD1.set('wait_time', 0)
+    
+    expect(examplePOD1.getWaitTime()).toBe(0)
+    expect(examplePOD1.getWaitTime()).not.toBeNull()
+  })
+  test('getWaitTime - waitTime is number != 0', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', 30)
+    
+    expect(examplePOD1.getWaitTime()).toBe(30)
+  })
+  test('getWaitTime - waitTime is undefined', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', undefined)
+    
+    expect(examplePOD1.getWaitTime()).toBe(undefined)
+  })
+  test('getWaitTime - waitTime is empty string', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', '')
+    
+    expect(examplePOD1.getWaitTime()).toBe(undefined)
+  })
+  test('getWaitTime - waitTime is null', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', null)
+    
+    expect(examplePOD1.getWaitTime()).toBe(undefined)
+  })
+  test('getWaitTime - waitTime is nonempty string number', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', '0')
+    
+    expect(examplePOD1.getWaitTime()).toBe(0)
+  })
+  test('getWaitTime - waitTime is nonempty string number != 0', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', '30')
+    
+    expect(examplePOD1.getWaitTime()).toBe(30)
+  })
+  test('getWaitTime - waitTime is nonempty string but not a number', () => {
+    expect.assertions(1)
+    examplePOD1.set('wait_time', 'Wait_Time')
+    
+    expect(examplePOD1.getWaitTime()).toBe(undefined)
+  })
 })
-
 describe('detailsHtml', () => {
   afterEach(() => {
     examplePOD1.set('LatestDate', '1/10/2019,3:54 PM')
@@ -319,6 +366,7 @@ describe('detailsHtml', () => {
 
   test('detailsHtml - active is true, Ops_status is open to public', () => {
     expect.assertions(4)
+    examplePOD2.set('wait_time', '0')
     const update = new Date(examplePOD2.get('LatestDate'))
     let ul = $('<ul></ul>')
       .append(`<li><b>Status: </b>${examplePOD2.getStatus()}</li>`)
