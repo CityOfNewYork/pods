@@ -156,27 +156,23 @@ const decorations = {
   },
   detailsHtml() {
     if (this.active) {
-      
-      let ul = $('<ul></ul>')
+      const ul = $('<ul></ul>')
+
+      const Ops_status = `<li><b>Status: </b>${this.getStatus()}</li>`
+      ul.append(Ops_status)
 
       if (this.getStatus() === 'Open to Public') {
-        const wait_time = this.getWaitTime() != undefined ? this.getWaitTime() + ' minutes' : 'N/A'
-        const waitTime = `<li><b>Wait time: </b>${wait_time}</li>`
-
+        const wait = this.getWaitTime() !== undefined ? `${this.getWaitTime()} minutes` : 'N/A'
+        const waitTime = `<li><b>Wait time: </b>${wait}</li>`
         ul.append(waitTime)
-      }
-      else if(this.getStatus() === 'Opening Soon'){
+      } else if (this.getStatus() === 'Opening Soon') {
         const openingTime = `<li><b>Estimated Opening Time: </b>${this.getOpeningTime()||'N/A'}</li>`
         ul.append(openingTime)
       }
-    
-      const Ops_status = `<li><b>Status: </b>${this.getStatus()}</li>`
 
       const update = this.getLatestDate()
       const latestUpdate = `<li><b>Last Updated: </b>${update||'N/A'}</li>`
       ul.append(latestUpdate)
-
-      ul.prepend(Ops_status)
 
       return ul
     }
