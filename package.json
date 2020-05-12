@@ -40,7 +40,7 @@
     "jest-fetch-mock": "^1.6.5",
     "nyc-build-helper": "^0.0.38",
     "webpack": "4.19.1",
-    "webpack-cli": "2.0.14"
+    "webpack-cli": "^3.3.11"
   },
   "jest": {
     "verbose": true,
@@ -57,5 +57,9 @@
     "collectCoverageFrom": [
       "src/js/**/*.js"
     ]
+  },
+  "resolutions": {
+    "**/**/serialize-javascript": "^2.1.1",
+    "**/**/minimist": "^1.2.3"
   }
 }
