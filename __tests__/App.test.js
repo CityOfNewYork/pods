@@ -88,7 +88,7 @@ describe('constructor', () => {
     expect(FinderApp.mock.calls[0][0].facilityTabTitle).toBe('PODs')
     expect(FinderApp.mock.calls[0][0].facilityStyle).toBe(facilityStyle.pointStyle)
     expect(FinderApp.mock.calls[0][0].facilitySearch.displayField).toBe('search_label')
-    expect(FinderApp.mock.calls[0][0].facilitySearch.nameField).toBe('name')
+    expect(FinderApp.mock.calls[0][0].facilitySearch.nameField).toBe('PODSiteName')
     
     expect(FinderApp.mock.calls[0][0].decorations.length).toBe(2)
     expect(FinderApp.mock.calls[0][0].decorations[0].content).toBe(mockContent)
@@ -186,7 +186,7 @@ describe('constructor', () => {
     expect(FinderApp.mock.calls[0][0].facilityTabTitle).toBe('PODs')
     expect(FinderApp.mock.calls[0][0].facilityStyle).toBe(facilityStyle.pointStyle)
     expect(FinderApp.mock.calls[0][0].facilitySearch.displayField).toBe('search_label')
-    expect(FinderApp.mock.calls[0][0].facilitySearch.nameField).toBe('name')
+    expect(FinderApp.mock.calls[0][0].facilitySearch.nameField).toBe('PODSiteName')
     
     expect(FinderApp.mock.calls[0][0].decorations.length).toBe(2)
     expect(FinderApp.mock.calls[0][0].decorations[0].content).toBe(mockContent)

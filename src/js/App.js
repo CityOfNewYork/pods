@@ -72,7 +72,7 @@ class App extends FinderApp {
       facilityFormat: format,
       facilityTabTitle: 'PODs',
       facilityStyle: facilityStyle.pointStyle,
-      facilitySearch: { displayField: 'search_label', nameField: 'name' },
+      facilitySearch: { displayField: 'search_label', nameField: 'PODSiteName' },
       decorations: [{ content: content }, decorations],
       filterChoiceOptions: filters,
       geoclientUrl: pods.GEOCLIENT_URL,
