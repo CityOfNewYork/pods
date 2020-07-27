@@ -20,15 +20,14 @@ describe('pointStyle', () => {
     facilityStyle.calcRadius = calcRadius
   })
   test('active is true, facility is closed', () => {
-    expect.assertions(14)
+    expect.assertions(13)
 
     let style = facilityStyle.pointStyle(examplePOD1, 305.748113140705)
 
     expect(examplePOD1.getStatus()).toBe('Closed to Public')
     expect(examplePOD1.active).toBe(true)
     expect(facilityStyle.iconLib.style).toHaveBeenCalledTimes(1)
-    expect(facilityStyle.iconLib.style.mock.calls[0][0]).toBe(examplePOD1.get('Icon'))
-    expect(facilityStyle.iconLib.style.mock.calls[0][1]).toBe(2 * facilityStyle.calcRadius.mock.results[0].value)
+    expect(facilityStyle.iconLib.style.mock.calls[0][0]).toEqual({"color": "#999999", "icon": "library-name/icon-name-1#ff0000", "width": 2})
     expect(facilityStyle.calcRadius).toHaveBeenCalledTimes(1)
     expect(facilityStyle.calcRadius.mock.calls[0][0]).toBe(9)
 
@@ -384,4 +383,26 @@ describe('stringDivider', () => {
     expect(facilityStyle.stringDivider(str,width,spaceReplacer)).toBe(str)
   })
 
+})
+
+describe('eventTriggers', () => {
+  beforeEach(() => {
+    global.finderApp = {
+      source: {
+        changed: jest.fn()
+      }
+    }
+  })
+  afterEach(() => {
+    delete global.finderApp
+  })
+
+  test('icon-loaded', () => {
+    facilityStyle.iconLib.trigger('icon-loaded')
+    expect(global.finderApp.source.changed).toHaveBeenCalledTimes(1)
+  })
+  test('icon-loaded', () => {
+    facilityStyle.iconLib.trigger('icon-not-found')
+    expect(global.finderApp.source.changed).toHaveBeenCalledTimes(1)
+  })
 })

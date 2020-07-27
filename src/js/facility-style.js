@@ -24,13 +24,13 @@ const facilityStyle = {
     const icon = feature.get('Icon')
     const radius = facilityStyle.calcRadius(zoom)
 
-    if (icon) {
-      return facilityStyle.iconLib.style({icon, width: radius * 2})
-    }
-
     let fillColor = '#0080A9'
     if (feature.active) {
       fillColor = ACTIVE_COLORS[Ops_status] || fillColor
+    }
+
+    if (icon) {
+      return facilityStyle.iconLib.style({icon, width: radius * 2, color: fillColor})
     }
 
     return new Style({
