@@ -25,7 +25,7 @@ const facilityStyle = {
     const radius = facilityStyle.calcRadius(zoom)
 
     if (icon) {
-      return facilityStyle.iconLib.style(icon, radius * 2)
+      return facilityStyle.iconLib.style({icon, width: radius * 2})
     }
 
     let fillColor = '#0080A9'
@@ -139,6 +139,13 @@ const facilityStyle = {
     return pos
   }
 }
+
+facilityStyle.iconLib.on('icon-loaded', () => {
+  global.finderApp.source.changed()
+})
+facilityStyle.iconLib.on('icon-not-found', () => {
+  global.finderApp.source.changed()
+})
 
 export default facilityStyle
 
