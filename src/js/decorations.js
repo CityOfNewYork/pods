@@ -65,9 +65,9 @@ const decorations = {
       const icon = this.getIcon()
       const parsed = this.iconLib.parseIcon({
         icon, 
-        color: facilityStyle.getFillColor(this)
+        fill: facilityStyle.getFillColor(this)
       })
-      const key = `${parsed.library}-${parsed.name}-${parsed.color}`
+      const key = `${parsed.library}-${parsed.name}-${parsed.fill}`
       this.iconSrc = this.iconLib.icons[key]
       if (this.iconSrc) {
         this.iconLib.off('icon-loaded', this.icon, this)

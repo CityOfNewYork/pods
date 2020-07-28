@@ -221,6 +221,9 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
   padding: 0;
   text-align: left;
 }
+.translated-rtl .f-tip * {
+  text-align: right;
+}
 .f-tip ul {
   padding: 3px;
   background-color: var(--color-medium);
@@ -297,6 +300,16 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
 /* .chc-chc input:before {
   display: inline-block;
 } */
+.name img, .translated-rtl .name img {
+  margin-left: 0px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  vertical-align: middle;
+}
+.addr {
+  margin-left: 18px;
+  margin-top: -3px;
+}
 .chc-chc.Ops_status label:before,
 .facility.open-to-public .name:before,
 .facility.opening-soon .name:before,

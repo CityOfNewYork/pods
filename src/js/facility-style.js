@@ -24,7 +24,6 @@ const facilityStyle = {
     if (feature.active) {
       fillColor = ACTIVE_COLORS[feature.getStatus()] || fillColor
     }
-    console.warn(feature.getStatus(), fillColor);
     return fillColor
   },
   pointStyle: (feature, resolution) => {
@@ -41,7 +40,7 @@ const facilityStyle = {
   },
   getStroke(icon) {
     if (icon === facilityStyle.CIRCLE_ICON) {
-      return {width: 2, color: '#000'}
+      return {width: 1, color: '#000'}
     }
   },
   calcRadius: (zoom) => {
