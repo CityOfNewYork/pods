@@ -17,12 +17,14 @@ const ACTIVE_COLORS = {
 }
 
 const facilityStyle = {
+  CIRCLE_ICON: 'mapbox-maki/circle#fff',
   iconLib: new IconLib(),
   getFillColor(feature) {
     let fillColor = '#0080A9'
     if (feature.active) {
-      return ACTIVE_COLORS[feature.getStatus()] || fillColor
+      fillColor = ACTIVE_COLORS[feature.getStatus()] || fillColor
     }
+    console.warn(feature.getStatus(), fillColor);
     return fillColor
   },
   pointStyle: (feature, resolution) => {
@@ -33,8 +35,14 @@ const facilityStyle = {
     return facilityStyle.iconLib.style({
       icon, 
       width: radius * 2, 
-      color: facilityStyle.getFillColor(feature)
+      fill: facilityStyle.getFillColor(feature),
+      stroke: facilityStyle.getStroke(icon)
     })
+  },
+  getStroke(icon) {
+    if (icon === facilityStyle.CIRCLE_ICON) {
+      return {width: 2, color: '#000'}
+    }
   },
   calcRadius: (zoom) => {
     let radius = 6

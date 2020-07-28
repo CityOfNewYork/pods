@@ -55,12 +55,9 @@ const decorations = {
       }
     }
 
-    const icon = this.getIcon()
     this.iconLib = this.facilityStyle.iconLib
-    if (icon) {
-      this.iconLib.on('icon-loaded', this.icon, this)
-      this.icon(this.facilityStyle.pointStyle(this))
-    }
+    this.iconLib.on('icon-loaded', this.icon, this)
+    this.icon(this.facilityStyle.pointStyle(this))
   },
   icon(style) {
     const img = style.getImage()
@@ -87,7 +84,11 @@ const decorations = {
     return this.get('PODSiteName')
   },
   getIcon() {
-    return this.get('Icon') || 'mapbox-maki/circle#fff'
+    const icon = this.get('Icon')
+    if (icon) {
+      return icon
+    }
+    return facilityStyle.CIRCLE_ICON
   },
   html() {
     return $('<div class="facility"></div>')
