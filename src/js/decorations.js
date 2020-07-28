@@ -53,6 +53,31 @@ const decorations = {
         this.app.remove.push(this)
       }
     }
+
+    const icon = this.get('Icon')
+    this.iconLib = this.facilityStyle.iconLib
+    if (icon) {
+      this.iconLib.on('icon-loaded', this.icon, this)
+      this.icon(this.facilityStyle.pointStyle(this))
+    }
+  },
+  icon(style) {
+    const img = style.getImage()
+    if (img) {
+      const icon = this.get('Icon')
+      const parsed = this.iconLib.parseIcon({icon})
+      const key = `${parsed.library}-${parsed.name}-${parsed.color}`
+      this.iconSrc = this.iconLib.icons[key]
+      if (this.iconSrc) {
+        this.iconLib.off('icon-loaded', this.icon, this)
+        $(`.${this.getId()} h3 img`).attr('src', this.iconSrc)
+      }
+    }
+  },
+  nameHtml() {
+    return $('<h3 class="name notranslate"></h3>')
+      .append(`<img src="${this.iconSrc || ''}">`)
+      .append(this.getName())
   },
   getName() {
     return this.get('PODSiteName')
