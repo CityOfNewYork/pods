@@ -18,32 +18,22 @@ const ACTIVE_COLORS = {
 
 const facilityStyle = {
   iconLib: new IconLib(),
-  pointStyle: (feature, resolution) => {
-    const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
-    const Ops_status = feature.getStatus()
-    const icon = feature.get('Icon')
-    const radius = facilityStyle.calcRadius(zoom)
-
+  getFillColor(feature) {
     let fillColor = '#0080A9'
     if (feature.active) {
-      fillColor = ACTIVE_COLORS[Ops_status] || fillColor
+      return ACTIVE_COLORS[feature.getStatus()] || fillColor
     }
+    return fillColor
+  },
+  pointStyle: (feature, resolution) => {
+    const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
+    const icon = feature.getIcon()
+    const radius = facilityStyle.calcRadius(zoom)
 
-    if (icon) {
-      return facilityStyle.iconLib.style({icon, width: radius * 2, color: fillColor})
-    }
-
-    return new Style({
-      image: new Circle({
-        fill: new Fill({
-          color: fillColor
-        }),
-        radius: radius,
-        stroke: new Stroke({
-          width: 1,
-          color: '#1A1A1A'
-        })
-      })
+    return facilityStyle.iconLib.style({
+      icon, 
+      width: radius * 2, 
+      color: facilityStyle.getFillColor(feature)
     })
   },
   calcRadius: (zoom) => {

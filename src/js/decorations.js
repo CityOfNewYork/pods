@@ -3,6 +3,7 @@
  */
 
 import pods from './pods'
+import facilityStyle from './facility-style'
 
 const FIELDS = [
   'OBJECTID',
@@ -54,7 +55,7 @@ const decorations = {
       }
     }
 
-    const icon = this.get('Icon')
+    const icon = this.getIcon()
     this.iconLib = this.facilityStyle.iconLib
     if (icon) {
       this.iconLib.on('icon-loaded', this.icon, this)
@@ -64,8 +65,11 @@ const decorations = {
   icon(style) {
     const img = style.getImage()
     if (img) {
-      const icon = this.get('Icon')
-      const parsed = this.iconLib.parseIcon({icon})
+      const icon = this.getIcon()
+      const parsed = this.iconLib.parseIcon({
+        icon, 
+        color: facilityStyle.getFillColor(this)
+      })
       const key = `${parsed.library}-${parsed.name}-${parsed.color}`
       this.iconSrc = this.iconLib.icons[key]
       if (this.iconSrc) {
@@ -82,10 +86,12 @@ const decorations = {
   getName() {
     return this.get('PODSiteName')
   },
+  getIcon() {
+    return this.get('Icon') || 'mapbox-maki/circle#fff'
+  },
   html() {
     return $('<div class="facility"></div>')
       .addClass(this.getId())
-      .addClass(this.active ? this.getStatus().replace(/ /g, '-').toLowerCase() : '')
       .append(this.distanceHtml())
       .append(this.nameHtml())
       .append(this.distanceHtml(true))
