@@ -12,9 +12,7 @@ const pointStyle = facilityStyle.pointStyle
 const icon  = decorations.icon
 
 facilityStyle.pointStyle = jest.fn()
-decorations.icon = jest.fn(() => {
-  return 'mock-icon'
-})
+decorations.icon = jest.fn()
 
 let messages = [
   {

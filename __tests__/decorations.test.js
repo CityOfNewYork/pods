@@ -149,7 +149,7 @@ test('html - active true', () => {
 
   examplePOD1.extendFeature()
 
-  expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class="facility POD_ID-1 closed-to-public"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="DOHMHPODLink-1" target="_blank">Prepare for your visit</a><a class="btn rad-all prep" href="Link1-1" target="_blank">Label1-1</a><a class="btn rad-all prep" href="Link2-1" target="_blank">Label2-1</a><a class="btn rad-all prep" href="Link3-1" target="_blank">Label3-1</a><div class="extra"><div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div></div></div>`)
+  expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class="facility POD_ID-1"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="DOHMHPODLink-1" target="_blank">Prepare for your visit</a><a class="btn rad-all prep" href="Link1-1" target="_blank">Label1-1</a><a class="btn rad-all prep" href="Link2-1" target="_blank">Label2-1</a><a class="btn rad-all prep" href="Link3-1" target="_blank">Label3-1</a><div class="extra"><div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div></div></div>`)
   expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
   expect(examplePOD1.html()).not.toBeNull()  
 
