@@ -4,8 +4,12 @@ import decorations from '../src/js/decorations'
 import Point from 'ol/geom/Point';
 import pods from '../src/js/pods'
 import MapMgr from 'nyc-lib/nyc/ol/MapMgr'
+import facilityStyle from '../src/js/facility-style'
 
 const mockApp = {remove: []}
+
+facilityStyle.pointStyle = jest.fn()
+decorations.icon = jest.fn()
 
 let messages = [
   {
@@ -42,7 +46,7 @@ const examplePOD1 = new OlFeature({
   extra2: 'Extra2'
 })
 
-$.extend(examplePOD1, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD1, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD1.extendFeature()
 
 //active, open
@@ -65,7 +69,7 @@ const examplePOD2 = new OlFeature({
   Label2: 'Label2-2'
 })
 
-$.extend(examplePOD2, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD2, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD2.extendFeature()
 
 const examplePOD3 = new OlFeature({
@@ -88,7 +92,7 @@ const examplePOD3 = new OlFeature({
   Label3: 'Label3-3'
 })
 
-$.extend(examplePOD3, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD3, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD3.extendFeature()
 
 const examplePOD5 = new OlFeature({
@@ -106,7 +110,7 @@ const examplePOD5 = new OlFeature({
   DOHMHPODLink: 'Link-5'
 })
 
-$.extend(examplePOD5, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD5, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD5.extendFeature()
 
 
@@ -135,7 +139,7 @@ const examplePOD4 = new OlFeature({
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD4, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD4, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD4.extendFeature()
 
 const examplePOD6 = new OlFeature({
@@ -152,7 +156,7 @@ const examplePOD6 = new OlFeature({
   DOHMHPODLink: ''
 })
 
-$.extend(examplePOD6, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD6, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD6.extendFeature()
 
 
@@ -181,7 +185,7 @@ const examplePOD7 = new OlFeature({
   DOHMHPODLink: 'Link'
 })
 
-$.extend(examplePOD7, MapMgr.FEATURE_DECORATIONS, decorations, {content: content, app: mockApp})
+$.extend(examplePOD7, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD7.extendFeature()
 
 module.exports = {mockApp, examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5, examplePOD6, examplePOD7}

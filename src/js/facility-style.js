@@ -10,26 +10,26 @@ import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Text from 'ol/style/Text'
 
-const ACTIVE_COLORS = {
-  'Open to Public': '#19DB17',
-  'Opening Soon': '#F3E318',
-  'Closed to Public': '#999999'
-}
-
 const facilityStyle = {
+  INACTIVE_COLOR: '#0080A9',
+  ACTIVE_COLORS: {
+    'Open to Public': '#19DB17',
+    'Opening Soon': '#F3E318',
+    'Closed to Public': '#999999'
+  },
   CIRCLE_ICON: 'mapbox-maki/circle#fff',
   iconLib: new IconLib(),
   getFillColor(feature) {
-    let fillColor = '#0080A9'
+    let fillColor = facilityStyle.INACTIVE_COLOR
     if (feature.active) {
-      fillColor = ACTIVE_COLORS[feature.getStatus()] || fillColor
+      fillColor = facilityStyle.ACTIVE_COLORS[feature.getStatus()] || fillColor
     }
     return fillColor
   },
   pointStyle: (feature, resolution) => {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
     const icon = feature.getIcon()
-    const radius = facilityStyle.calcRadius(zoom)
+    const radius = facilityStyle.getRadius(zoom)
 
     return facilityStyle.iconLib.style({
       icon, 
@@ -43,7 +43,7 @@ const facilityStyle = {
       return {width: 1, color: '#000'}
     }
   },
-  calcRadius: (zoom) => {
+  getRadius: (zoom) => {
     let radius = 6
     if (zoom > 17) radius = 20
     else if (zoom > 15) radius = 16
@@ -53,7 +53,7 @@ const facilityStyle = {
   },
   highlightStyle: (feature, resolution) => {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
-    const radius = facilityStyle.calcRadius(zoom)
+    const radius = facilityStyle.getRadius(zoom)
     return new Style({
       image: new Circle({
         radius: radius * 1.5,
@@ -88,7 +88,7 @@ const facilityStyle = {
         break
     }
     if (zoom > 13) {
-      const fontSize = facilityStyle.calcRadius(zoom)
+      const fontSize = facilityStyle.getRadius(zoom)
       const siteName = facilityStyle.stringDivider(feature.getName(), 24, '\n')
       return new Style({
         text: new Text({
