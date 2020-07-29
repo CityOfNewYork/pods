@@ -4,13 +4,14 @@ import Circle from 'ol/style/Circle'
 import nycOl from 'nyc-lib/nyc/ol'
 
 test('getFillColor', () => {
-  expect.assertions(4)
+  expect.assertions(5)
 
   expect(facilityStyle.getFillColor(examplePOD1)).toBe(facilityStyle.ACTIVE_COLORS['Closed to Public'])
   expect(facilityStyle.getFillColor(examplePOD2)).toBe(facilityStyle.ACTIVE_COLORS['Open to Public'])
   expect(facilityStyle.getFillColor(examplePOD3)).toBe(facilityStyle.ACTIVE_COLORS['Opening Soon'])
   expect(facilityStyle.getFillColor(examplePOD4)).toBe(facilityStyle.INACTIVE_COLOR)
-
+  //active app, inactive pod
+  expect(facilityStyle.getFillColor(examplePOD5)).toBe(facilityStyle.INACTIVE_COLOR)
 })
 
 test('getStroke', () => {
@@ -278,6 +279,7 @@ describe('pointStyle', () => {
   })
   afterEach(() => {
     facilityStyle.pointStyle = jest.fn()
+    facilityStyle.iconLib = iconLib
   })
 
   test('pointStyle', () => {
@@ -289,5 +291,27 @@ describe('pointStyle', () => {
     expect(facilityStyle.iconLib.style.mock.calls[0][0].width).toBe(12)
     expect(facilityStyle.iconLib.style.mock.calls[0][0].fill).toBe('#999999')
     expect(facilityStyle.iconLib.style.mock.calls[0][0].stroke).toBeUndefined()
+  })
+})
+
+describe('eventTriggers', () => {
+  beforeEach(() => {
+    global.finderApp = {
+      source: {
+        changed: jest.fn()
+      }
+    }
+  })
+  afterEach(() => {
+    delete global.finderApp
+  })
+
+  test('icon-loaded', () => {
+    facilityStyle.iconLib.trigger('icon-loaded')
+    expect(global.finderApp.source.changed).toHaveBeenCalledTimes(1)
+  })
+  test('icon-loaded', () => {
+    facilityStyle.iconLib.trigger('icon-not-found')
+    expect(global.finderApp.source.changed).toHaveBeenCalledTimes(1)
   })
 })
