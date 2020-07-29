@@ -1,4 +1,4 @@
-import {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5,examplePOD7} from './test-features'
+import {examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5,examplePOD7, pointStyle} from './test-features'
 import facilityStyle from '../src/js/facility-style'
 import Circle from 'ol/style/Circle'
 import nycOl from 'nyc-lib/nyc/ol'
@@ -264,4 +264,30 @@ describe('stringDivider', () => {
     expect(facilityStyle.stringDivider(str,width,spaceReplacer)).toBe(str)
   })
 
+})
+
+describe('pointStyle', () => {
+  const iconLib = facilityStyle.iconLib
+  beforeEach(() => {
+    facilityStyle.pointStyle = pointStyle
+    facilityStyle.iconLib = {
+      style: jest.fn().mockImplementation(() => {
+        return 'mock-style'
+      })
+    }
+  })
+  afterEach(() => {
+    facilityStyle.pointStyle = jest.fn()
+  })
+
+  test('pointStyle', () => {
+    expect.assertions(6)
+
+    expect(facilityStyle.pointStyle(examplePOD1, 120.12241480526231)).toBe('mock-style')
+    expect(facilityStyle.iconLib.style).toHaveBeenCalledTimes(1)
+    expect(facilityStyle.iconLib.style.mock.calls[0][0].icon).toBe('library-name/icon-name-1#ff0000')
+    expect(facilityStyle.iconLib.style.mock.calls[0][0].width).toBe(12)
+    expect(facilityStyle.iconLib.style.mock.calls[0][0].fill).toBe('#999999')
+    expect(facilityStyle.iconLib.style.mock.calls[0][0].stroke).toBeUndefined()
+  })
 })

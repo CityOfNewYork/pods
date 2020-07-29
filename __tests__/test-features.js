@@ -8,8 +8,13 @@ import facilityStyle from '../src/js/facility-style'
 
 const mockApp = {remove: []}
 
+const pointStyle = facilityStyle.pointStyle
+const icon  = decorations.icon
+
 facilityStyle.pointStyle = jest.fn()
-decorations.icon = jest.fn()
+decorations.icon = jest.fn(() => {
+  return 'mock-icon'
+})
 
 let messages = [
   {
@@ -188,4 +193,4 @@ const examplePOD7 = new OlFeature({
 $.extend(examplePOD7, MapMgr.FEATURE_DECORATIONS, decorations, {facilityStyle, content, app: mockApp})
 examplePOD7.extendFeature()
 
-module.exports = {mockApp, examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5, examplePOD6, examplePOD7}
+module.exports = {mockApp, examplePOD1,examplePOD2,examplePOD3,examplePOD4,examplePOD5, examplePOD6, examplePOD7, pointStyle, icon}

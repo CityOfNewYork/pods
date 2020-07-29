@@ -19,7 +19,7 @@ const facilityStyle = {
   },
   CIRCLE_ICON: 'mapbox-maki/circle#fff',
   iconLib: new IconLib(),
-  getFillColor(feature) {
+  getFillColor: (feature) => {
     let fillColor = facilityStyle.INACTIVE_COLOR
     if (feature.active) {
       fillColor = facilityStyle.ACTIVE_COLORS[feature.getStatus()] || fillColor
@@ -30,7 +30,6 @@ const facilityStyle = {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
     const icon = feature.getIcon()
     const radius = facilityStyle.getRadius(zoom)
-
     return facilityStyle.iconLib.style({
       icon, 
       width: radius * 2, 
@@ -38,7 +37,7 @@ const facilityStyle = {
       stroke: facilityStyle.getStroke(icon)
     })
   },
-  getStroke(icon) {
+  getStroke: (icon) => {
     if (icon === facilityStyle.CIRCLE_ICON) {
       return {width: 1, color: '#000'}
     }
@@ -64,7 +63,6 @@ const facilityStyle = {
       })
     })
   },
-
   textStyle: (feature, resolution) => {
     const zoom = nycOl.TILE_GRID.getZForResolution(resolution)
     const pos = facilityStyle.getLabelPositon(feature, zoom)
@@ -103,7 +101,6 @@ const facilityStyle = {
       })
     }
   },
-
   stringDivider: (str, width, spaceReplacer) => {
     if (str.length > width) {
       let p = width
@@ -123,8 +120,7 @@ const facilityStyle = {
     }
     return str
   },
-
-  getLabelPositon(feature, zoom) {
+  getLabelPositon: (feature, zoom) => {
     let pos = 'E'
     for (let z = zoom - 14; z >= 0; z--) {
       const p = feature.get('LabelPos').split(' ')[z]
