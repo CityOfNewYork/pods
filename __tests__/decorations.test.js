@@ -1,8 +1,11 @@
 import decorations from '../src/js/decorations'
 import OlFeature from 'ol/Feature'
-import {mockApp, examplePOD1, examplePOD2, examplePOD3, examplePOD4, examplePOD6} from './test-features'
+import {mockApp, examplePOD1, examplePOD2, examplePOD3, examplePOD4, examplePOD6, icon} from './test-features'
 import nyc from 'nyc-lib/nyc'
 import pods from '../src/js/pods'
+import facilityStyle from '../src/js/facility-style'
+import Style from 'ol/style/Style'
+import Icon from 'ol/style/Icon'
 
 let container, extendedDecorations
 beforeEach(() => {
@@ -10,9 +13,6 @@ beforeEach(() => {
   container = $('<div></div>')
   $('body').append(container)
   extendedDecorations = {
-    nameHtml() {
-      return '<p>A Name</p>'
-    },
     addressHtml() {
       return '<p>An Address</p>'
     },
@@ -140,6 +140,67 @@ describe('extendFeature', () => {
   })
 })
 
+describe('icon', () => {
+  let div 
+  const iconLib = examplePOD1.iconLib
+  let library, name, fill
+  beforeEach(() => {
+    div = $(`<div class="${examplePOD1.getId()}"><h3><img></h3></div>`)
+    $('body').append(div)
+    examplePOD1.icon = icon 
+    examplePOD1.iconLib = {
+      icons: {
+        'library-name-icon-name-fill-name': 'mock-src'
+      },
+      parseIcon: jest.fn().mockImplementation(() => {
+        return {
+          library,
+          name,
+          fill
+        }
+      }),
+      off: jest.fn()
+    }
+  })
+  afterEach(() => {
+    div.remove()
+    examplePOD1.icon = jest.fn() 
+  })
+  test('icon - no img', () => {
+    expect.assertions(1)
+    examplePOD1.icon(new Style({}))
+    expect(examplePOD1.iconSrc).toBeUndefined()
+  })
+  test('icon w/ iconSrc', () => {
+    expect.assertions(6)
+    library = 'library-name', name = 'icon-name', fill = 'fill-name'
+    examplePOD1.icon(new Style({
+      image: new Icon({
+        src: 'src'
+      })
+    }))
+    expect(examplePOD1.iconSrc).toBe('mock-src')
+    expect(examplePOD1.iconLib.off).toHaveBeenCalledTimes(1)
+    expect(examplePOD1.iconLib.off.mock.calls[0][0]).toBe('icon-loaded')
+    expect(examplePOD1.iconLib.off.mock.calls[0][1]).toBe(examplePOD1.icon)
+    expect(examplePOD1.iconLib.off.mock.calls[0][2]).toBe(examplePOD1)
+    expect(div.find('img').attr('src')).toBe('mock-src')
+  })
+
+  test('icon w/o iconSrc', () => {
+    expect.assertions(3)
+    library = 'library2-name', name = 'icon2-name', fill = 'fill2-name'
+    examplePOD1.icon(new Style({
+      image: new Icon({
+        src: 'src'
+      })
+    }))
+    expect(examplePOD1.iconSrc).toBeUndefined()
+    expect(examplePOD1.iconLib.off).toHaveBeenCalledTimes(0)
+    expect(div.find('img').attr('src')).toBeUndefined()
+  })
+})
+
 test('html - active true', () => {
   expect.assertions(8)
 
@@ -147,9 +208,10 @@ test('html - active true', () => {
   const time = date.toLocaleTimeString()
   date = date.toLocaleDateString()
 
+  examplePOD1.iconSrc = 'iconSrc'
   examplePOD1.extendFeature()
 
-  expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class="facility POD_ID-1"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="DOHMHPODLink-1" target="_blank">Prepare for your visit</a><a class="btn rad-all prep" href="Link1-1" target="_blank">Label1-1</a><a class="btn rad-all prep" href="Link2-1" target="_blank">Label2-1</a><a class="btn rad-all prep" href="Link3-1" target="_blank">Label3-1</a><div class="extra"><div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div></div></div>`)
+  expect($('<div></div>').html(examplePOD1.html()).html()).toEqual(`<div class="facility POD_ID-1"><p>A Distance</p><h3 class="name notranslate"><img src="iconSrc">POD_Site_Name</h3><p>screen</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="DOHMHPODLink-1" target="_blank">Prepare for your visit</a><a class="btn rad-all prep" href="Link1-1" target="_blank">Label1-1</a><a class="btn rad-all prep" href="Link2-1" target="_blank">Label2-1</a><a class="btn rad-all prep" href="Link3-1" target="_blank">Label3-1</a><div class="extra"><div class="lbl">extra1:</div><div class="val">Extra1</div><div class="lbl">extra2:</div><div class="val">Extra2</div></div></div>`)
   expect(examplePOD1.html().data('feature')).toBe(examplePOD1)
   expect(examplePOD1.html()).not.toBeNull()  
 
@@ -169,10 +231,10 @@ test('html - active true', () => {
 
 test('html - active false', () => {
   expect.assertions(8)
-
+ 
   examplePOD4.extendFeature()
 
-  expect($('<div></div>').html(examplePOD4.html()).html()).toEqual('<div class="facility POD_ID-4"><p>A Distance</p><p>A Name</p><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare for your visit</a></div>')
+  expect($('<div></div>').html(examplePOD4.html()).html()).toEqual('<div class="facility POD_ID-4"><p>A Distance</p><h3 class="name notranslate"><img src="">POD_Site_Name</h3><p>screen</p><p>An Address</p><p>Map</p><p>Directions</p><a class="btn rad-all prep" href="Link" target="_blank">Prepare for your visit</a></div>')
   expect(examplePOD4.html().data('feature')).toBe(examplePOD4)
   expect(examplePOD4.html()).not.toBeNull()
 
@@ -207,7 +269,7 @@ test('getTip', () => {
   date = date.toLocaleDateString()
 
   examplePOD1.extendFeature()
-  expect(examplePOD1.getTip()).toEqual($(`<div><p>A Name</p><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><i class="dir-tip">Click on site for directions</i></div>`))
+  expect(examplePOD1.getTip()).toEqual($(`<div><h3 class="name notranslate"><img src="iconSrc">POD_Site_Name</h3><p>An Address</p><ul><li><b>Status: </b>Closed to Public</li><li><b>Last Updated: </b>${date} ${time}</li></ul><i class="dir-tip">Click on site for directions</i></div>`))
   expect(examplePOD1.getTip()).not.toBeNull()
 })
 
@@ -216,7 +278,6 @@ test('getAddress1', () => {
   expect(examplePOD1.getAddress1()).toBe(`${examplePOD1.get('Address')}`)
   expect(examplePOD1.getAddress1()).not.toBeNull()
 })
-
 
 test('getCityStateZip', () => {
   expect.assertions(2)
@@ -230,6 +291,22 @@ test('getName', () => {
   expect(examplePOD1.getName()).not.toBeNull()
 })
 
+test('getIcon', () => {
+  expect.assertions(2)
+  expect(examplePOD1.getIcon()).toBe('library-name/icon-name-1#ff0000')
+  expect(examplePOD2.getIcon()).toBe(facilityStyle.CIRCLE_ICON)
+})
+
+describe('nameHtml', () => {
+  beforeEach(() => {
+    examplePOD1.iconSrc = 'iconSrc'
+  })
+  test('nameHtml', () => {
+    expect(examplePOD1.nameHtml()).toEqual($('<h3 class="name notranslate"></h3>')
+    .append(`<img src="iconSrc">`)
+    .append(examplePOD1.getName()))
+  })
+})
 describe('getStatus', () => {
   afterEach(() => {
     examplePOD1.set('Ops_status', 'Closed to Public')
@@ -298,6 +375,7 @@ test('getOpeningTime - no time', () => {
   expect.assertions(1)
   expect(examplePOD6.getOpeningTime()).toBeUndefined()
 })
+
 describe('getWaitTime', () => {
   afterEach(() => {
     examplePOD1.set('wait_time', 'Wait_Time')
@@ -352,6 +430,7 @@ describe('getWaitTime', () => {
     expect(examplePOD1.getWaitTime()).toBe(undefined)
   })
 })
+
 describe('detailsHtml', () => {
   afterEach(() => {
     examplePOD1.set('LatestDate', '1/10/2019,3:54 PM')

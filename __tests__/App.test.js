@@ -65,7 +65,7 @@ afterEach(() => {
 describe('constructor', () => {
 
   test('constructor active  (using provided REST URL)', () => {
-    expect.assertions(64)
+    expect.assertions(65)
 
     mockContent.messages.active = 'true'
 
@@ -92,6 +92,7 @@ describe('constructor', () => {
     
     expect(FinderApp.mock.calls[0][0].decorations.length).toBe(2)
     expect(FinderApp.mock.calls[0][0].decorations[0].content).toBe(mockContent)
+    expect(FinderApp.mock.calls[0][0].decorations[0].facilityStyle).toBe(facilityStyle)
     expect(FinderApp.mock.calls[0][0].decorations[1]).toBe(decorations)
 
     expect(FinderApp.mock.calls[0][0].geoclientUrl).toBe(pods.GEOCLIENT_URL)
@@ -156,7 +157,7 @@ describe('constructor', () => {
   })
 
   test('constructor not active  (no REST URL provided)', () => {
-    expect.assertions(55)
+    expect.assertions(56)
 
     mockContent.messages.active = 'false'
     mockContent.messages.pods_url = ''
@@ -190,6 +191,7 @@ describe('constructor', () => {
     
     expect(FinderApp.mock.calls[0][0].decorations.length).toBe(2)
     expect(FinderApp.mock.calls[0][0].decorations[0].content).toBe(mockContent)
+    expect(FinderApp.mock.calls[0][0].decorations[0].facilityStyle).toBe(facilityStyle)
     expect(FinderApp.mock.calls[0][0].decorations[1]).toBe(decorations)
 
     expect(FinderApp.mock.calls[0][0].geoclientUrl).toBe(pods.GEOCLIENT_URL)
