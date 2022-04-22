@@ -1,6 +1,6 @@
 {
   "name": "pods",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "description": "Points of Dispensing (PODs) are temporary sites that are ready to open to provide life-saving medications to anyone who needs them after a biological attack or during a communicable disease outbreak. The sites are located throughout the city and are run by the NYC Department of Health and Mental Hygiene. All NYC POD sites are wheelchair accessible.",
   "main": "index.js",
   "scripts": {
@@ -57,5 +57,11 @@
     "collectCoverageFrom": [
       "src/js/**/*.js"
     ]
+  },
+  "resolutions": {
+    "**/**/serialize-javascript": "^3.1.0",
+    "**/**/ssri": "^6.0.2",
+    "**/**/glob-parent": "^5.1.2",
+    "**/**/node-notifier": "^8.0.1"
   }
 }
