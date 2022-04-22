@@ -23,8 +23,8 @@
   "homepage": "https://github.com/timkeane/pods#readme",
   "dependencies": {
     "jquery": "^3.3.1",
-    "nyc-lib": "^1.4.13",
-    "ol": "6.1.0",
+    "nyc-lib": "^1.4.61",
+    "ol": "6.5.0",
     "papaparse": "^4.5.1",
     "proj4": "^2.4.4"
   },
@@ -38,7 +38,7 @@
     "jest": "^24.8.0",
     "jest-canvas-mock": "^2.2.0",
     "jest-fetch-mock": "^1.6.5",
-    "nyc-build-helper": "^0.0.38",
+    "nyc-build-helper": "^0.0.44",
     "webpack": "4.19.1",
     "webpack-cli": "^3.3.11"
   },
@@ -57,9 +57,5 @@
     "collectCoverageFrom": [
       "src/js/**/*.js"
     ]
-  },
-  "resolutions": {
-    "**/**/serialize-javascript": "^2.1.1",
-    "**/**/minimist": "^1.2.3"
   }
 }
