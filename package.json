@@ -1,6 +1,6 @@
 {
   "name": "pods",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "description": "Points of Dispensing (PODs) are temporary sites that are ready to open to provide life-saving medications to anyone who needs them after a biological attack or during a communicable disease outbreak. The sites are located throughout the city and are run by the NYC Department of Health and Mental Hygiene. All NYC POD sites are wheelchair accessible.",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/timkeane/pods#readme",
   "dependencies": {
     "jquery": "^3.3.1",
-    "nyc-lib": "^1.4.61",
+    "nyc-lib": "^1.4.66",
     "ol": "6.5.0",
     "papaparse": "5.2.0",
     "proj4": "^2.4.4"
@@ -38,6 +38,9 @@
     "jest": "^24.8.0",
     "jest-canvas-mock": "^2.2.0",
     "jest-fetch-mock": "^1.6.5",
+    "postcss-clean": "^1.2.2",
+    "postcss-css-variables": "^0.18.0",
+    "postcss-import": "^14.1.0",
     "nyc-build-helper": "^0.0.44",
     "webpack": "4.19.1",
     "webpack-cli": "^3.3.11"
