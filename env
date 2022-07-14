@@ -1,0 +1,12 @@
+STG_GEOCLIENT_HOST=csgis-stg-prx.csc.nycnet
+STG_LEAF_TILE_HOST=csgis{s}-stg-prx.csc.nycnet
+STG_OL_TILE_HOST=csgis{1-4}-stg-prx.csc.nycnet
+STG_DEPLOY_HOST=msslva-gisapp01.csc.nycnet
+DEPLOY_DIR=/gis/data/apps/mobile
+DEPLOY_USER=gis
+STG_DEPLOY_HOST=msslva-gisapp01.csc.nycnet
+PRD_DEPLOY_HOST=msplva-gisapp01.t3mgmt.nycnet
+GEOCLIENT_KEY="app_key=E6001EFF1F1816317&app_id=pods"
+GOOGLE_ANALYTICS="<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-41281554-18"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-41281554-18');</script>"
+GOOGLE_DIRECTIONS="https://maps.googleapis.com/maps/api/js?client=gme-newyorkcitydepartment&channel=pods&sensor=false&libraries=visualization"
+STG_ICON_BASE_URL="https://csgis-stg-prx.csc.nycnet/nyc-lib/icons"
