@@ -20,14 +20,9 @@
   width: 320px;
 }
 .fnd .splash .dia a.btn-yes {
-  background-image: var(--speaker-icon-light);
-}
-.fnd .splash .dia a.btn-yes:focus {
   background-image: var(--speaker-icon-dark);
 }
-.fnd .splash .dia a.btn-yes:hover {
-  background-image: var(--speaker-icon-light);
-}
+
 #marquee {
   display: none;
   border-top: 1px solid #F2DEDE;
@@ -384,18 +379,19 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
   margin-left: 23px;
 }
 
-.splash .btn, .splash .btn * {
-  background-color: #0080a9 !important;
-  color: #fff !important;
+.splash a.btn,
+.splash a.btn *,
+.splash div.btn,
+.splash div.btn * {
+  background-color: #fff;
+  color: #0080a9;
 }
 
-.splash a:focus, .splash a:focus * {
-  box-shadow: none !important;
-  background-color: #fefcd5 !important;
-  color: #0080a9 !important;
-}
-
-.btn-shr:focus, .btn-z-in:focus, .btn-z-out:focus, .btn-geo:focus, #lng .btn-sq.focused {
+.btn-shr:focus,
+.btn-z-in:focus,
+.btn-z-out:focus,
+.btn-geo:focus,
+#lng .btn-sq.focused {
   box-shadow: 0 0 3px 3px #fefcd5 inset !important;
   border: 1px solid #0080a9;
 }
@@ -436,6 +432,10 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
 }
 #mta svg {
   fill: #0080a9;
+}
+
+#lng .btn {
+  background-image: var(--translate-icon-dark);
 }
 
 @media only screen and (max-width: 340px) {
