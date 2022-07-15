@@ -16,9 +16,7 @@
   font-size: 110%;
   margin: 0;
 }
-.fnd .splash .dia a.btn {
-  width: 320px;
-}
+
 .fnd .splash .dia a.btn-yes {
   background-image: var(--speaker-icon-dark);
 }
@@ -436,6 +434,11 @@ button.btn.btn-rnd.btn-prv, button.btn.btn-rnd.btn-nxt {
 
 #lng .btn {
   background-image: var(--translate-icon-dark);
+}
+
+#lng div.btn {
+  background-color: #fff;
+  color: #0080a9;
 }
 
 @media only screen and (max-width: 340px) {
