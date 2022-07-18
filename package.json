@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "prebuild": "yarn roll-css",
+    "prebuild": "yarn test && yarn roll-css",
     "roll-css": "./node_modules/nyc-lib/css/roll-css.sh ./src/css/pods.theme.css ./src/css/pods.css",
     "predeploy": "yarn build",
     "deploy": "node deploy"
@@ -64,11 +64,9 @@
   "resolutions": {
     "**/**/serialize-javascript": "^3.1.0",
     "**/**/ssri": "^6.0.2",
-    "**/**/glob-parent": "^5.1.2",
+    "**/**/glob-parent": "^6.0.1",
     "**/**/node-notifier": "^8.0.1",
     "**/**/cross-fetch": "^3.1.5",
-    "**/**/postcss": "^8.2.10",
-    "**/**/jsdom": "^16.5.0"
-    
+    "**/**/postcss": "^8.2.10"
   }
 }
